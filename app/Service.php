@@ -17,16 +17,17 @@ class Service extends Model
     /**
      * @var array
      */
-    protected $fillable = ['category_id', 'label_service', 'price_service', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'label_service', 'price_service', 'created_at', 'updated_at'];
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'id', 'id');
     }
 
     public function clients()
     {
-        return $this->belongsToMany(Client::class, ClientUser::class)
-            ->withTimestamps();
+        return $this->belongsToMany(Client::class, ClientUser::class, Ticket::class, 'id', 'id')
+        ->withPivot('num_ticket', 'total_amount')
+        ->withTimestamps();
     }
 }

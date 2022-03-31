@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use App\Role;
+use App\Permission;
 
 class RoleController extends Controller
 {
@@ -13,7 +17,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::all();
+
+        return view('roles.index', compact('roles'));
     }
 
     /**
@@ -23,7 +29,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::all() ->pluck ('label_permission', 'id');
+
+        return view('roles.create', compact('permissions'));
     }
 
     /**
@@ -34,7 +42,19 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'label_role' => ['required', 'string', 'max:255', 'unique:roles', Rule::unique('roles')],
+            'permissions[]' => ['required', 'string'],
+        ]);
+
+        $role = Role::create($request->all());
+        $role->permissions()->sync($request->input('permissions', []));
+
+        $status = 'A new role was created successfully.';
+
+        return redirect()->route('roles.index')->with([
+            'status' => $status,
+        ]);
     }
 
     /**
@@ -54,9 +74,13 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($role)
     {
-        //
+        $permissions = Permission::all()->pluck('label_permission', 'id');
+
+        $role->load('permissions');
+
+        return view('roles.edit', compact('permissions', 'role'));
     }
 
     /**
@@ -66,9 +90,20 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $role)
     {
-        //
+        $this->validate($request, [
+            'label_role' => ['required', 'string', 'max:255', Rule::unique('roles')->ignore($role),]
+        ]);
+
+        $role->update($request->all());
+        $role->permissions()->sync($request->input('permissions', []));
+
+        $status = 'The role was updated successfully.';
+
+        return redirect()->route('roles.index')->with([
+            'status' => $status,
+        ]);
     }
 
     /**
@@ -79,6 +114,12 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        DB::table('roles')->where('id_role', $id)->delete();
+        $status = 'The role was deleted successfully.';
+
+        return redirect()->route('roles.index')->with([
+            'status' => $status,
+        ]);
     }
 }

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
+use App\Service;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -13,7 +17,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::all();
+
+        return view('services.index', compact('services'));
     }
 
     /**
@@ -23,7 +29,9 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all()->pluck('label_category', 'id_category');
+
+        return view('services.create', compact('categories'));
     }
 
     /**
@@ -34,7 +42,18 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'label_service' => ['required', 'string', 'max:255',Rule::unique('services')],
+            'price_service' => ['required', 'numeric', 'min:0'],
+        ]);
+
+        $service = Service::create($request->all());
+
+        $status = 'A new service was created successfully.';
+
+        return redirect()->route('services.index')->with([
+            'status' => $status,
+        ]);
     }
 
     /**
@@ -45,7 +64,8 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $services = Service::all();
+      return view('index', compact('service'));
     }
 
     /**
@@ -54,9 +74,13 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($service)
     {
-        //
+        $categories = Category::all()->pluck('label_category', 'id_category');
+
+        $service->load('category');
+
+        return view('services.edit', compact('categories', 'service'));
     }
 
     /**
@@ -66,9 +90,20 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $service)
     {
-        //
+        $this->validate($request, [
+            'label_service' => ['required', 'string', 'max:255', Rule::unique('services')->ignore($service),],
+            'price_service' => ['required', 'numeric', 'min:0'],
+        ]);
+
+        $service->update($request->all());
+
+        $status = 'The service was updated successfully.';
+
+        return redirect()->route('services.index')->with([
+            'status' => $status,
+        ]);
     }
 
     /**
@@ -79,6 +114,12 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('services')->where('id_service', $id)->delete();
+
+        $status = 'The service was deleted successfully.';
+
+        return redirect()->route('services.index')->with([
+            'status' => $status,
+        ]);
     }
 }
