@@ -14,7 +14,9 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'label_category' => $this->faker->company(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
