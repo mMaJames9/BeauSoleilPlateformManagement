@@ -131,8 +131,7 @@
 
 
 @section('scripts')
-    @parent
-
+@parent
     <script>
         // Simple Datatable
         let tdcategories = document.querySelector('#tdcategories');

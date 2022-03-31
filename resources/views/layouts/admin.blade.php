@@ -135,6 +135,8 @@
 
 <!-- Scripts -->
 @livewireScripts
+
+
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="{{ asset('assets/js/jquery3.5.1.js') }}"></script>
 <script src="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
