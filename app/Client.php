@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Client extends Model
 {
+    use HasFactory;
     /**
      * @var array
      */
@@ -27,7 +29,7 @@ class Client extends Model
     public function services()
     {
         return $this->belongsToMany(Service::class, ClientService::class)
-            ->withPivot('num_ticket')
+            ->withPivot(['num_ticket'])
             ->withTimestamps();
     }
 

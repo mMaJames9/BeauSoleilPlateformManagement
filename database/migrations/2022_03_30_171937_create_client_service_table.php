@@ -14,7 +14,7 @@ class CreateClientServiceTable extends Migration
     public function up()
     {
         Schema::create('client_service', function (Blueprint $table) {
-            $table->integer('id', true)->nullable();
+            $table->increments('id');
             $table->integer('client_id');
             $table->integer('service_id');
             $table->string('num_ticket')->nullable();
