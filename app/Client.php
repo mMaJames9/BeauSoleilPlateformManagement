@@ -21,13 +21,13 @@ class Client extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, ClientUser::class)
-            ->withTimestamps();
+        return $this->belongsToMany(User::class, ClientUser::class);
     }
 
     public function services()
     {
         return $this->belongsToMany(Service::class, ClientService::class)
+            ->withPivot('num_ticket')
             ->withTimestamps();
     }
 

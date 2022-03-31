@@ -14,7 +14,8 @@ class AddForeignKeysToClientUserTable extends Migration
     public function up()
     {
         Schema::table('client_user', function (Blueprint $table) {
-            $table->foreign(['client_id', 'id'], 'FK_client_user')->references(['id'])->on('clients')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign(['client_id', 'user_id'], 'FK_client_user')->references(['id'])->on('clients')
+                ->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 

@@ -14,10 +14,11 @@ class CreateClientServiceTable extends Migration
     public function up()
     {
         Schema::create('client_service', function (Blueprint $table) {
-            $table->integer('id');
+            $table->integer('id', true)->nullable();
+            $table->integer('client_id');
             $table->integer('service_id');
-
-            $table->primary(['id', 'service_id']);
+            $table->string('num_ticket')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -14,10 +14,10 @@ class CreateClientUserTable extends Migration
     public function up()
     {
         Schema::create('client_user', function (Blueprint $table) {
-            $table->integer('id');
             $table->integer('client_id');
+            $table->integer('user_id');
 
-            $table->primary(['id', 'client_id']);
+            $table->primary(['client_id', 'user_id']);
         });
     }
 
