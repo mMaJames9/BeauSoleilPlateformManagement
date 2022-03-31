@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 class PermissionController extends Controller
 {
     /**
@@ -13,7 +15,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
+        $permissions = Permission::all();
+
+        return view('permissions.index', compact('permissions'));
     }
 
     /**
@@ -23,18 +27,28 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return view('permissions.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'label_permission' => ['required', 'string', 'max:255', Rule::unique('permissions')],
+        ]);
+
+        $permission = Permission::create($request->all());
+
+        $status = 'A new permission was created successfully.';
+
+        return redirect()->route('permissions.index')->with([
+            'status' => $status,
+        ]);
     }
 
     /**
@@ -54,9 +68,11 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($permission)
     {
-        //
+        $permission->load('permissions');
+
+        return view('permissions.edit', compact('permission'));
     }
 
     /**
@@ -64,21 +80,37 @@ class PermissionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $permission)
     {
-        //
+        $this->validate($request, [
+            'label_permission' => ['required', 'string', 'max:255', Rule::unique('permissions').$this->category->id],
+        ]);
+
+        $permission->update($request->all());
+
+        $status = 'The permission was updated successfully.';
+
+        return redirect()->route('permissions.index')->with([
+            'status' => $status,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        DB::table('permissions')->where('id', $id)->delete();
+
+        $status = 'The permission was deleted successfully.';
+
+        return redirect()->route('permissions.index')->with([
+            'status' => $status,
+        ]);
     }
 }

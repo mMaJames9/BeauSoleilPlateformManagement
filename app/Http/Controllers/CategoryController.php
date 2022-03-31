@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Category;
+use App\Service;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -13,8 +16,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+
+        return view('categories.index', compact('categories'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -23,7 +29,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $services = Service::all()->pluck('label_service', 'id_service');
+
+        return view('categories.create', compact('services'));
     }
 
     /**
@@ -34,7 +42,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'label_category' => ['required', 'string', 'max:255'],
+        ]);
+
+        $category = Category::create($request->all());
+
+        $status = 'A new category was created successfully.';
+
+        return redirect()->route('categories.index')->with([
+            'status' => $status,
+        ]);
     }
 
     /**
@@ -56,7 +74,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -66,9 +84,19 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $this->validate($request, [
+            'label_category' => ['required', 'string', 'max:255'],
+        ]);
+
+        $category->update($request->all());
+
+        $status = 'A new category was created successfully.';
+
+        return redirect()->route('categories.index')->with([
+            'status' => $status,
+        ]);
     }
 
     /**
@@ -79,6 +107,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('categories')->where('id', $id)->delete();
+
+        $status = 'The category was deleted successfully.';
+
+        return redirect()->route('categories.index')->with([
+            'status' => $status,
+        ]);
     }
 }
