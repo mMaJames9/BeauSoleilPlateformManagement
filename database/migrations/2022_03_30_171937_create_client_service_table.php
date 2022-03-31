@@ -15,9 +15,9 @@ class CreateClientServiceTable extends Migration
     {
         Schema::create('client_service', function (Blueprint $table) {
             $table->integer('id');
-            $table->integer('user_id');
+            $table->integer('service_id');
 
-            $table->primary(['id', 'user_id']);
+            $table->primary(['id', 'service_id']);
         });
     }
 
