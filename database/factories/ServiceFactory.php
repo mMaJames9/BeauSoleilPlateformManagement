@@ -14,7 +14,10 @@ class ServiceFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'label_service' => $this->faker->jobTitle(),
+            'price_service' => $this->faker->numberBetween($min = 1000, $max = 9000),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

@@ -14,7 +14,10 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name_client' => $this->faker->name(),
+            'phone_number' => $this->faker->unique()->numerify('69#-###-###'),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

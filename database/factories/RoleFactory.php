@@ -14,7 +14,8 @@ class RoleFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
