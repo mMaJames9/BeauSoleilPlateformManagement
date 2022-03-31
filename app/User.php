@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+<<<<<<< HEAD
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use DateTimeInterface;
@@ -32,6 +33,16 @@ class User extends Authenticatable
     use Notifiable;
 
     public $table = 'users';
+=======
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class User extends Authenticatable
+{
+    use Notifiable;
+    use HasFactory;
+>>>>>>> 2f7fd8d95a92382171367f9046255166932d1ff7
 
     /**
      * The attributes that are mass assignable.
@@ -39,7 +50,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+<<<<<<< HEAD
         'name', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'
+=======
+        'name', 'email', 'password',
+>>>>>>> 2f7fd8d95a92382171367f9046255166932d1ff7
     ];
 
     /**
@@ -56,6 +71,7 @@ class User extends Authenticatable
      *
      * @var array
      */
+<<<<<<< HEAD
     protected $casts = ['updated_at','created_at','deleted_at','email_verified_at'];
 
     public function setPasswordAttribute($input)
@@ -65,6 +81,11 @@ class User extends Authenticatable
         }
 
     }
+=======
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+>>>>>>> 2f7fd8d95a92382171367f9046255166932d1ff7
 
     public function clients()
     {
