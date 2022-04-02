@@ -68,7 +68,7 @@
                             <td>{{ $service->id ?? '' }}</td>
                             <td class="">{{ $service->label_service ?? '' }}</td>
                             <td class="">
-                                <span class="badge bg-light-primary my-1">{{ $service->category->label_category }}</span>
+                                <span class="badge bg-light-primary my-1">{{ $service->pivot}}</span>
                             </td>
                             <td class="">{{ $service->created_at ?? '' }}</td>
                             <td class="text-center">

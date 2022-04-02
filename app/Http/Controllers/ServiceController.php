@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Category;
 use App\Service;
+use App\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use MigrationsGenerator\Models\Model;
+use Illuminate\Foundation\Bootstrap\LoadConfiguration;
 
 class ServiceController extends Controller
 {
@@ -64,8 +71,9 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
+      
         $services = Service::all();
-      return view('index', compact('service'));
+      return view('services.index', compact('services'));
     }
 
     /**
@@ -76,9 +84,9 @@ class ServiceController extends Controller
      */
     public function edit($service)
     {
-        $categories = Category::all()->pluck('label_category', 'id_category');
+        $categories = Category::all()->pluck('label_category', 'id');
 
-        $service->load('category');
+        $service->load('categories')->get();
 
         return view('services.edit', compact('categories', 'service'));
     }
@@ -114,7 +122,7 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('services')->where('id_service', $id)->delete();
+        DB::table('services')->where('id', $id)->delete();
 
         $status = 'The service was deleted successfully.';
 

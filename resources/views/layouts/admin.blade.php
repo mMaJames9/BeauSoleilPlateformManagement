@@ -147,6 +147,7 @@
 <script src="{{ asset('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 
+
 </body>
 </html>
 

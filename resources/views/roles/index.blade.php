@@ -88,7 +88,7 @@
                                     <div class="modal-dialog modal-dialog modal-dialog modal-dialog-scrollable" role="document">
                                         <div class="modal-content">
 
-                                            <form action="{{ route('roles.destroy', $role->id_role) }}" method="POST">
+                                            <form action="{{ route('roles.destroy', $role->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="modal-header">
