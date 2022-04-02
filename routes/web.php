@@ -28,11 +28,13 @@ Auth::routes(['register' => false]);
 Route::group(['middleware' => ['auth']], function () {
     Route::redirect('/', '/login')->name('home');
 
+    Route::get('/findPriceService', 'App\Http\Controllers\ClientServiceController@findPriceService');
+
     Route::resource('/admin/management/categories', 'App\Http\Controllers\CategoryController');
     Route::resource('/admin/management/clients', 'App\Http\Controllers\ClientController');
     Route::resource('/admin/usermanagement/permissions', 'App\Http\Controllers\PermissionController');
     Route::resource('/admin/usermanagement/roles', 'App\Http\Controllers\RoleController');
-    Route::resource('/admin/usermanagement/services', 'App\Http\Controllers\ServiceController');
+    Route::resource('/admin/management/services', 'App\Http\Controllers\ServiceController');
     Route::resource('/admin/management/tickets', 'App\Http\Controllers\ClientServiceController');
     Route::resource('/admin/usermanagement/users', 'App\Http\Controllers\UserController');
 

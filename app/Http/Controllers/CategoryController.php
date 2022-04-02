@@ -16,11 +16,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        // abort_if(Gate::denies('category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $categories = Category::all();
 
         return view('categories.index', compact('categories'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +30,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $services = Service::all()->pluck('label_service', 'id_service');
+        // // abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $services = Service::all()->pluck('label_service', 'id');
 
         return view('categories.create', compact('services'));
     }
@@ -58,22 +61,25 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
         //
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
+        // // abort_if(Gate::denies('category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('categories.edit', compact('category'));
     }
 
@@ -81,7 +87,7 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Category $category)
@@ -102,11 +108,14 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        // // abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        //delete the categories
         DB::table('categories')->where('id', $id)->delete();
 
         $status = 'The category was deleted successfully.';
@@ -116,3 +125,4 @@ class CategoryController extends Controller
         ]);
     }
 }
+

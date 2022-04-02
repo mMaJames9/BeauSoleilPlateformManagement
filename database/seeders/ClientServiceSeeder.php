@@ -22,11 +22,9 @@ class ClientServiceSeeder extends Seeder
         foreach($clients as $client) {
             $services = Service::inRandomOrder()->take(rand(1,3))->pluck('id');
 
-            foreach ($services as $service) {
                 $client->services()->attach($services, ['num_ticket' =>
                     Str::random(6)
                 ]);
-            }
         }
     }
 }

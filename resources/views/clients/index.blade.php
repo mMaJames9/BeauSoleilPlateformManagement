@@ -40,9 +40,7 @@
 
     <div style="margin-bottom: 2rem;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("clients.create") }}">
-                Ajouter un nouveau Client
-            </a>
+
         </div>
     </div>
 
@@ -65,9 +63,17 @@
                     <tbody class="text-center">
                     @foreach($clients as $client)
                         <tr class="">
-                            <td>{{ $client->id ?? '' }}</td>
-                            <td class="">{{ $client->name_client ?? '' }}</td>
-                            <td class="">{{ $client->phone_number ?? '' }}</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td class="">
+                                <span class="badge bg-light-primary my-1">
+                                {{ $client->name_client ?? '' }}
+                                </span>
+                            </td>
+                            <td class="">
+                                <span class="badge bg-light-warning my-1">
+                                {{ $client->phone_number ?? '' }}
+                                </span>
+                            </td>
                             <td class="">{{ $client->created_at ?? '' }}</td>
                             <td class="text-center">
                                 <a role="button" class="badge bg-light-danger" data-bs-toggle="modal"

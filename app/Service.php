@@ -19,11 +19,11 @@ class Service extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id', 'label_service', 'price_service', 'created_at', 'updated_at'];
+    protected $fillable = ['category_id', 'label_service', 'price_service', 'created_at', 'updated_at'];
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'id', 'id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function clients()

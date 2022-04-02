@@ -21,16 +21,20 @@
 
                                     <div class="form-group">
                                         <label class="required" for="label_role">Titre</label>
-                                        <input class="form-control {{ $errors->has('label_role') ? 'is-invalid' : '' }}" type="text" name="label_role" id="label_role" value="{{ old('label_role', '') }}">
+                                        <input class="form-control {{ $errors->has('label_role') ? 'is-invalid' : '' }}"
+                                               type="text" name="label_role" id="label_role"
+                                               value="{{ old('label_role', '') }}">
                                         @if($errors->has('label_role'))
-                                            <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('label_role') }}</div>
+                                            <div id="validationServer04Feedback"
+                                                 class="invalid-feedback">{{ $errors->first('label_role') }}</div>
                                         @endif
                                     </div>
 
                                     <div class="form-group">
                                         <label class="required" for="permissions">Choisir les permissions</label>
                                         <div class="form-group">
-                                            <select class="choices form-select multiple-remove {{ $errors->has('permissions') ? 'is-invalid' : '' }}" name="permissions[]" id="permissions" multiple >
+                                            <select class="choices form-select multiple-remove {{ $errors->has('permissions') ? 'is-invalid' : '' }}"
+                                                    name="permissions[]" id="permissions" multiple>
                                                 @foreach($permissions as $id => $permissions)
                                                     <option value="{{ $id }}" {{ in_array($id, old('permissions', [])) ? 'selected' : '' }}>{{ $permissions }}</option>
                                                 @endforeach
@@ -38,7 +42,8 @@
                                         </div>
 
                                         @if($errors->has('permissions'))
-                                            <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('permissions') }}</div>
+                                            <div id="validationServer04Feedback"
+                                                 class="invalid-feedback">{{ $errors->first('permissions') }}</div>
                                         @endif
                                     </div>
 
@@ -46,7 +51,8 @@
                                         <button class="btn btn-success" type="submit">
                                             Enregistrer
                                         </button>
-                                        <a class="btn btn-primary" href="{{ route('roles.index') }}">Retour à la liste</a>
+                                        <a class="btn btn-primary" href="{{ route('roles.index') }}">Retour à la
+                                            liste</a>
                                     </div>
                                 </form>
                             </div>
