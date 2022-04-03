@@ -15,6 +15,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        // abort_if(Gate::denies('permission_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $permissions = Permission::all();
 
         return view('permissions.index', compact('permissions'));
@@ -27,6 +29,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        // // abort_if(Gate::denies('permission_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('permissions.create');
     }
 
@@ -34,7 +38,7 @@ class PermissionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -54,10 +58,10 @@ class PermissionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Permission  $permission
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Permission $permission)
     {
         //
     }
@@ -65,11 +69,13 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Permission  $permission
      * @return \Illuminate\Http\Response
      */
-    public function edit($permission)
+    public function edit(Permission $permission)
     {
+        // // abort_if(Gate::denies('permission_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $permission->load('permissions');
 
         return view('permissions.edit', compact('permission'));
@@ -79,13 +85,13 @@ class PermissionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \App\Permission  $permission
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $permission)
+    public function update(Request $request, Permission $permission)
     {
         $this->validate($request, [
-            'label_permission' => ['required', 'string', 'max:255', Rule::unique('permissions').$this->category->id],
+            'label_permission' => ['required', 'string', 'max:255', Rule::unique('permissions').$this->category->id_category],
         ]);
 
         $permission->update($request->all());
@@ -100,12 +106,18 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \App\Permission  $permission
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        // // abort_if(Gate::denies('permission_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        //delete the permissions
         DB::table('permissions')->where('id', $id)->delete();
+
+        // get list of all transactions of permissions
+        // DB::table('hold')->where('id', $id)->delete();
 
         $status = 'The permission was deleted successfully.';
 

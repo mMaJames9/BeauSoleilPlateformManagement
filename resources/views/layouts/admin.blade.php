@@ -9,6 +9,8 @@
 
     <title>Beau Soleil</title>
 
+    @livewireStyles
+
     <!-- Fonts -->
 {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"> --}}
@@ -23,8 +25,6 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/choices.js/choices.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/toastify/toastify.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/iconly/bold.css') }}">
-
-    @livewireStyles
 
     @yield('styles')
 
@@ -134,8 +134,6 @@
 
 
 <!-- Scripts -->
-@livewireScripts
-
 
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="{{ asset('assets/js/jquery3.5.1.js') }}"></script>
@@ -147,6 +145,9 @@
 <script src="{{ asset('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 
+@livewireScripts
+
+@yield('scripts')
 
 </body>
 </html>

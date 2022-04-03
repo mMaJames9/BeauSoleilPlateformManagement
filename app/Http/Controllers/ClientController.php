@@ -15,6 +15,8 @@ class ClientController extends Controller
      */
     public function index()
     {
+        // abort_if(Gate::denies('client_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $clients = Client::all();
 
         return view('clients.index', compact('clients'));
@@ -27,6 +29,8 @@ class ClientController extends Controller
      */
     public function create()
     {
+        // abort_if(Gate::denies('client_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('clients.create');
     }
 
@@ -55,10 +59,10 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Client $client)
     {
         //
     }
@@ -66,11 +70,13 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Client $client)
     {
+        // abort_if(Gate::denies('client_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('clients.edit', compact('client'));
     }
 
@@ -78,10 +84,10 @@ class ClientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Client $client)
     {
         //
     }
@@ -89,12 +95,18 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        // abort_if(Gate::denies('client_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        //delete the clients
         DB::table('clients')->where('id', $id)->delete();
+
+        // get list of all transactions of clients
+        // DB::table('hold')->where('id', $id)->delete();
 
         $status = 'The client was deleted successfully.';
 

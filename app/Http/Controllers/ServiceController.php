@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Service;
 use App\Category;
+use App\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +23,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
+        // abort_if(Gate::denies('service_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $services = Service::all();
 
         return view('services.index', compact('services'));
@@ -36,7 +37,9 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $categories = Category::all()->pluck('label_category', 'id_category');
+        // // abort_if(Gate::denies('service_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $categories = Category::all()->pluck('label_category', 'id');
 
         return view('services.create', compact('categories'));
     }
@@ -49,6 +52,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'label_service' => ['required', 'string', 'max:255',Rule::unique('services')],
             'price_service' => ['required', 'numeric', 'min:0'],
@@ -66,24 +70,24 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Service $service)
     {
-      
-        $services = Service::all();
-      return view('services.index', compact('services'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function edit($service)
+    public function edit(Service $service)
     {
+        // // abort_if(Gate::denies('service_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $categories = Category::all()->pluck('label_category', 'id');
 
         $service->load('categories')->get();
@@ -95,10 +99,10 @@ class ServiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $service)
+    public function update(Request $request, Service $service)
     {
         $this->validate($request, [
             'label_service' => ['required', 'string', 'max:255', Rule::unique('services')->ignore($service),],
@@ -117,12 +121,18 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        // // abort_if(Gate::denies('service_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        //delete the services
         DB::table('services')->where('id', $id)->delete();
+
+        // get list of all transactions of services
+        // DB::table('hold')->where('id', $id)->delete();
 
         $status = 'The service was deleted successfully.';
 

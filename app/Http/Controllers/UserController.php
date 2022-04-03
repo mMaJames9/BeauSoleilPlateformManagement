@@ -16,6 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        // abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $users = User::all();
 
         return view('users.index', compact('users'));
@@ -28,7 +30,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all()->pluck('label_role', 'id_role');
+        // abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $roles = Role::all()->pluck('label_role', 'id');
 
         return view('users.create', compact('roles'));
     }
@@ -60,10 +64,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
     }
@@ -71,12 +75,14 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($user)
+    public function edit(User $user)
     {
-        $roles = Role::all()->pluck('label_role', 'id_role');
+        // abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $roles = Role::all()->pluck('label_role', 'id');
 
         $user->load('roles');
 
@@ -87,10 +93,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $user)
+    public function update(Request $request, User $user)
     {
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
@@ -109,12 +115,18 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        // abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        //delete the users
         DB::table('users')->where('id', $id)->delete();
+
+        // get list of all transactions of users
+        // DB::table('hold')->where('id', $id)->delete();
 
         $status = 'The user was deleted successfully.';
 

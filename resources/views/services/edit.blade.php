@@ -23,9 +23,9 @@
                                     @csrf
 
                                     <div class="form-group">
-                                        <select class="choices form-select {{ $errors->has('category') ? 'is-invalid' : '' }}" name="id_category" id="id_category">
+                                        <select class="choices form-select {{ $errors->has('category') ? 'is-invalid' : '' }}" name="category_id" id="category_id">
                                             @foreach($categories as $id => $category)
-                                                <option value="{{ $id }}" {{ ($service->category ? $service->category->id : old('id_category')) == $id ? 'selected' : '' }}>{{ $category }}</option>
+                                                <option value="{{ $id }}" {{ ($service->category ? $service->category->id : old('category_id')) == $id ? 'selected' : '' }}>{{ $category }}</option>
                                             @endforeach
                                         </select>
                                         @if($errors->has('category'))

@@ -40,9 +40,7 @@
 
     <div style="margin-bottom: 2rem;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("permissions.create") }}">
-                Ajouter une nouvelle permission
-            </a>
+
         </div>
     </div>
 
@@ -64,8 +62,13 @@
                     <tbody class="text-center">
                     @foreach($permissions as $permission)
                         <tr class="">
-                            <td>{{ $permission->id ?? '' }}</td>
-                            <td class="">{{ $permission->label_permission ?? '' }}</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td class="">
+                                <span class="badge bg-light-primary
+                                my-1">
+                                {{ $permission->label_permission ?? '' }}
+                                </span>
+                            </td>
                             <td class="">{{ $permission->created_at ?? '' }}</td>
                             <td class="text-center">
 

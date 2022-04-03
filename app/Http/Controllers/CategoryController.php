@@ -81,11 +81,11 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $categories)
+    public function edit(Category $category)
     {
         // // abort_if(Gate::denies('category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $categories= Category::find($categories);
-        return view('categories.edit', compact('categories'));
+
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -130,3 +130,4 @@ class CategoryController extends Controller
         ]);
     }
 }
+
