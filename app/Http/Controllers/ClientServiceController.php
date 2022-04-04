@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+require '../vendor/autoload.php';
 
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use App\Client;
 use App\ClientService;
 use App\Service;
@@ -55,6 +58,16 @@ class ClientServiceController extends Controller
         return view('tickets.create', compact($datas));
     }
 
+    public function PrintData()
+    {
+        $printd =ClientService::all()->pluck( 'client_id', 'service_id','num_ticket', 'created_at');
+        $connector = new FilePrintConnector('/dev/usb/lp0', 'w');
+        $printer = new Printer($connector);
+        $printer -> text($printd);
+        $printer -> cut();
+        $printer -> close();
+        return view('tickets.PrintData', compact('printer'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -71,6 +84,7 @@ class ClientServiceController extends Controller
         }
 
         $status = 'A new ticket was created successfully.';
+
 
         return redirect()->route('tickets.index')->with([
             'status' => $status,
@@ -98,7 +112,7 @@ class ClientServiceController extends Controller
      * @param  \App\ClientService  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function edit(ClientService $ticket)
+    public function edit()
     {
         //
     }

@@ -31,8 +31,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::redirect('/', '/login')->name('home');
 
     Route::get('/findPriceService', 'App\Http\Controllers\ClientServiceController@findPriceService');
-    Route::get('/findcountservices','App\Http\Controllers\HomeController@countservices');
-    
+    Route::get('/countservices','App\Http\Controllers\HomeController@countservices');
+    Route::get('/PrintData','App\Http\Controllers\ClientServiceController@PrintData')->name('PrintData');
+
     Route::resource('/admin/management/categories', 'App\Http\Controllers\CategoryController');
     Route::resource('/admin/management/clients', 'App\Http\Controllers\ClientController');
     Route::resource('/admin/usermanagement/permissions', 'App\Http\Controllers\PermissionController');
