@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Client;
 use App\ClientService;
 use App\Service;
-use App\Ticket;
+use App\Facture;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
