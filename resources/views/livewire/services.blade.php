@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    @foreach ($createTickets as $index => $createTicket)
+    @foreach ($createfactures as $index => $createfacture)
 
         <div class="row mb-4">
             <div class="col-4">
@@ -17,7 +17,7 @@
 
                         <select class="serviceName form-select"
                         style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
-                        name="createTickets[{{$index}}][service_id]" wire:model="createTickets.{{$index}}.service_id"
+                        name="createfactures[{{$index}}][service_id]" wire:model="createfactures.{{$index}}.service_id"
                         id="service_id">
 
                         <option value="0" selected>-- Choisir un service --</option>
@@ -38,11 +38,11 @@
                 <div class="form-group">
                     <label class="required" for="price_service">Prix Unitaire (en CFA)</label>
                     <input class="servicePrice form-control-plaintext h5"
-                    {{-- wire:model="createTickets.{{$index}}.price_service" --}}
+                    {{-- wire:model="createfactures.{{$index}}.price_service" --}}
                     style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
                     type="number"
                     id="price_service"
-                    name="createTickets[{{$index}}][price_service]"
+                    name="createfactures[{{$index}}][price_service]"
                     autocomplete="off"
                     placeholder="0"
                     readonly>
@@ -58,9 +58,9 @@
                     type="number"
                     min="1"
                     id="quantity"
-                    name="createTickets[{{$index}}][quantity]"
+                    name="createfactures[{{$index}}][quantity]"
                     autocomplete="off"
-                    wire:model="createTickets.{{$index}}.quantity">
+                    wire:model="createfactures.{{$index}}.quantity">
 
                 </div>
             </div>
@@ -72,7 +72,7 @@
                     style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
                     type="text"
                     id="montantCalcule"
-                    name="createTickets[{{$index}}][montantCalcule]"
+                    name="createfactures[{{$index}}][montantCalcule]"
                     autocomplete="off"
                     placeholder="0"
                     readonly>

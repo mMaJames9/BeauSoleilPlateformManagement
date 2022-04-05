@@ -18,7 +18,7 @@ class ClientServiceSeeder extends Seeder
     {
 
         $clients = Client::all();
-        $services = Service::inRandomOrder()->take(rand(1,5));
+        $services = Service::inRandomOrder()->take(rand(1,5))->pluck('id');
 
         foreach ($clients as $client) {
             foreach($services as $service) {

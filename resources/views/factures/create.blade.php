@@ -1,21 +1,21 @@
 @extends('layouts.admin')
 
 @section('page_title_header')
-    <h3>Facture</h3>
+    <h3>facture</h3>
 @endsection
 
 @section('content')
-    <section id="create-ticket">
+    <section id="create-facture">
         <div class="row">
             <div class="col-md-12">
                 <div class="card p-5">
 
-                    <form method="POST" action="{{ route("tickets.store") }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route("factures.store") }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="card-header mb-4">
-                            <label class="required" for="num_ticket">Facture No.</label>
-                            <input type="text" readonly class="mb-3 form-control-plaintext h4" name="num_ticket"
+                            <label class="required" for="num_facture">facture No.</label>
+                            <input type="text" readonly class="mb-3 form-control-plaintext h4" name="num_facture"
                             value="{{$random}}">
                         </div>
 
@@ -43,7 +43,7 @@
 
                                             <div class="col-3">
                                                 <div class="form-group">
-                                                    <label class="required" for="updated_at">Date Facture</label>
+                                                    <label class="required" for="updated_at">Date facture</label>
                                                     <input class="form-control-plaintext h5"
                                                     style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
                                                     type="text" name="updated_at" value="{{$date}}" readonly
@@ -92,7 +92,7 @@
                                         <button class="btn btn-success" type="submit" href="{{ route('PrintData') }}">
                                             Enregistrer
                                         </button>
-                                        <a class="btn btn-primary" href="{{ route('tickets.index') }}">Retour à la liste</a>
+                                        <a class="btn btn-primary" href="{{ route('factures.index') }}">Retour à la liste</a>
                                     </div>
 
                                 </div>

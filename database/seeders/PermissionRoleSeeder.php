@@ -22,7 +22,7 @@ class PermissionRoleSeeder extends Seeder
             return substr($permission->label_permission, 0, 5) != 'user_'
                 && substr($permission->label_permission, 0, 5) != 'role_'
                 && substr($permission->label_permission, 0, 11) != 'permission_'
-                && substr($permission->label_permission, 0, 8) != 'ticket_';
+                && substr($permission->label_permission, 0, 8) != 'facture_';
         });
         Role::findOrFail(2)->permissions()->sync($admin_permissions);
 

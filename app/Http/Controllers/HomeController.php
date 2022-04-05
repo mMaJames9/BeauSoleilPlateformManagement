@@ -30,7 +30,7 @@ public function getnumber($id)
     print_r($users);
     return view('home', compact('users')); */
 
-    
+
 }
 
 
@@ -43,7 +43,8 @@ public function getnumber($id)
     {
         $data = DB::table('clients')->count();
         $serv = DB::table('services')->count();
-        $tick = DB::table('client_service')->count();
+        $tick = DB::table('factures')->count();
+
         return view('home', compact('data', 'serv','tick'));
     }
 }

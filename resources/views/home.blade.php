@@ -49,7 +49,7 @@
                                         <div class="text-white card-body card-4">
                                                 <span class="rotate"><i class="fas fa-cube fa-4x display-4 card-icon text-white"></i></span>
                                             <div class="text-inverse-primary fw-bolder card-count fs-2 mb-2 mt-5 amount-position">{{$tick}}</div>
-                                            <div class="fw-bold text-inverse-primary fs-7">Total tickets </div>
+                                            <div class="fw-bold text-inverse-primary fs-7">Total factures </div>
                                         </div>
                                     </a>
                                 </div>

@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use App\Client;
-use App\Facture;
+use App\facture;
 use Illuminate\Database\Seeder;
 
-class FactureSeeder extends Seeder
+class factureseeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,9 @@ class FactureSeeder extends Seeder
      */
     public function run()
     {
-        // Facture::factory()->count(34)->create();
+        // facture::factory()->count(34)->create();
 
-        // foreach (Facture::all() as $facture) {
+        // foreach (facture::all() as $facture) {
         //     $clients = Client::inRandomOrder()->take(rand(1,10))->pluck('id');
         //     foreach ($clients as $client) {
         //         $facture->clients()->save($client);

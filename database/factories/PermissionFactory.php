@@ -64,12 +64,12 @@ class PermissionFactory extends Factory
                 'service_show',
                 'service_delete',
 
-                //ticket
-                'ticket_access',
-                'ticket_create',
-                'ticket_edit',
-                'ticket_show',
-                'ticket_delete',
+                //facture
+                'facture_access',
+                'facture_create',
+                'facture_edit',
+                'facture_show',
+                'facture_delete',
             )),
             'created_at' => now(),
             'updated_at' => now(),
