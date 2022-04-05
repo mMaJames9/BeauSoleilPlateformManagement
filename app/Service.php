@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $price_service
  * @property string $created_at
  * @property string $updated_at
+ * @property Category $category
  */
 class Service extends Model
 {
@@ -21,15 +22,18 @@ class Service extends Model
      */
     protected $fillable = ['category_id', 'label_service', 'price_service', 'created_at', 'updated_at'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    public function clients()
+    public function services()
     {
-        return $this->belongsToMany(Client::class, ClientService::class)
-            ->withPivot(['num_ticket'])
+        return $this->belongsToMany(Service::class, ClientService::class)
+            ->withPivot(['quantity'])
             ->withTimestamps();
     }
 }

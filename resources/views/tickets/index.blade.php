@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page_title_header')
-    <h3>Liste des Tickets</h3>
+    <h3>Liste des Factures</h3>
 @endsection
 
 @section('content')
@@ -41,7 +41,7 @@
     <div style="margin-bottom: 2rem;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route("tickets.create") }}">
-                Ajouter un nouveau ticket
+                Ajouter une nouvelle facture
             </a>
         </div>
     </div>
@@ -65,89 +65,78 @@
                     </tr>
                     </thead>
                     <tbody class="text-center">
-                    @foreach($clients as $client)
-                        @foreach($client->services->unique('num_ticket') as $ticket)
+                        @foreach($factures as $facture)
+                        <tr class="">
+                            <td>{{ $loop->iteration }}</td>
+                            <td class="">
+                                <span class="badge bg-light-primary
+                                my-1">
+                                    {{ $facture->label_service ?? '' }}
+                                </span>
+                            </td>
+                            <td class="">
+                                    <span class="badge bg-light-warning
+                                my-1">
+                                        {{ $facture->price_service ?? '' }} FCFA
+                                </span>
+                            </td>
+                            <td class="">{{ $facture->created_at ?? '' }}</td>
+                            <td class="text-center">
+                                <a class="badge bg-light-secondary" href="{{ route('tickets.edit', $facture->id) }}">
+                                    Edit
+                                </a>
 
-                            <tr class="">
-                                <td class="">
+                                <a role="button" class="badge bg-light-danger" data-bs-toggle="modal"
+                                   data-bs-target="#modal{{ $facture->id }}">
+                                    Delete
+                                </a>
 
-                                    <span class="badge bg-light-primary my-1">
-                                        {{ $ticket->pivot->num_ticket ?? '' }}
-                                    </span>
-                                </td>
-                                <td class="">
-                                    <span class="badge bg-light-primary my-1">
-                                        {{ $client->name_client ?? '' }}
-                                    </span>
-                                </td>
-                                <td class="">
-                                    @foreach($client->services and $client->tickets as $ticket)
-                                        <span class="badge bg-light-primary my-1">
-                                        {{ $ticket->label_service ?? '' }}
-                                    </span>
-                                    @endforeach
-                                </td>
-                                <td class="">{{ $ticket->pivot->created_at ?? '' }}</td>
-                                <td class="text-center">
-                                    <a class="badge bg-light-secondary" href="{{ route('tickets.show', $client->id) }}">
-                                        Show
-                                    </a>
+                                <div class="modal fade" id="modal{{ $facture->id }}" tabindex="-1"
+                                     aria-labelledby="deleteservice" aria-hidden="true" style="display: none;"
+                                     role="dialog">
+                                    <div class="modal-dialog modal-dialog modal-dialog modal-dialog-scrollable"
+                                         role="document">
+                                        <div class="modal-content">
 
-                                    <a role="button" class="badge bg-light-danger" data-bs-toggle="modal"
-                                       data-bs-target="#modal{{ $client->id }}">
-                                        Delete
-                                    </a>
+                                            <form action="{{ route('tickets.destroy', $facture->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteservice">Confimer la
+                                                        suppression</h5>
+                                                    <button type="button" class="close" data-bs-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="text-left">
+                                                    <p>Vous êtes sur le point de supprimer <span class="fw-bold">{{
+                                                    $facture->ticket->num_ticket }}</span>. Cliquez sur "Confirmer" pour
+                                                        valider ou sur "Fermer" pour annuler... </p>
+                                                    </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" id="id" name="id" class="btn btn-xs btn-danger"
+                                                           value="Confirmer">
 
-                                    <div class="modal fade" id="modal{{ $client->id }}" tabindex="-1"
-                                         aria-labelledby="deleteticket" aria-hidden="true" style="display: none;"
-                                         role="dialog">
-                                        <div class="modal-dialog modal-dialog modal-dialog modal-dialog-scrollable"
-                                             role="document">
-                                            <div class="modal-content">
+                                                    <button type="button" class="btn btn-light-secondary"
+                                                            data-bs-dismiss="modal">
+                                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">Fermer</span>
+                                                    </button>
 
-                                                <form action="{{ route('tickets.destroy', $ticket->id) }}"
-                                                      method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteticket">Confimer la
-                                                            suppression</h5>
-                                                        <button type="button" class="close" data-bs-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <i data-feather="x"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p class="text-left">
-                                                        <p>Vous êtes sur le point de supprimer le ticket No. <span
-                                                                    class="fw-bold">{{ $ticket->id }}</span>.
-                                                            Cliquez sur "Confirmer" pour valider ou sur "Fermer" pour
-                                                            annuler... </p>
-                                                        </p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                        <input type="submit" id="id" name="id"
-                                                               class="btn btn-xs btn-danger"
-                                                               value="Confirmer">
+                                                </div>
+                                            </form>
 
-                                                        <button type="button" class="btn btn-light-secondary"
-                                                                data-bs-dismiss="modal">
-                                                            <i class="bx bx-x d-block d-sm-none"></i>
-                                                            <span class="d-none d-sm-block">Fermer</span>
-                                                        </button>
-
-                                                    </div>
-                                                </form>
-
-                                            </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                </td>
-                            </tr>
-                        @endforeach
+                            </td>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>

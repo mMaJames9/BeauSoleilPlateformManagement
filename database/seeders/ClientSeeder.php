@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Client;
+use App\Facture;
 use Illuminate\Database\Seeder;
 
 class ClientSeeder extends Seeder
@@ -14,6 +15,12 @@ class ClientSeeder extends Seeder
      */
     public function run()
     {
-        Client::factory()->count(30)->create();
+
+        Client::factory()->count(7)->create()->each(function ($client)
+        {
+            // Create 5 services for each category
+            $factures =  Facture::factory()->count(3)->create();
+            $client->factures()->saveMany($factures);
+        });
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Client;
 use App\ClientService;
 use App\Service;
+use App\Ticket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,11 +31,9 @@ class ClientServiceController extends Controller
     {
         // abort_if(Gate::denies('ticket_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::with('services')
-            ->groupBy()
-            ->get();
+        $factures = ClientService::all();
 
-        return view('tickets.index', compact('clients'));
+        return view('tickets.index', compact('factures'));
     }
 
     /**
@@ -48,7 +47,7 @@ class ClientServiceController extends Controller
 
 
         $random = strtoupper(Str::random(6));
-        $date = Carbon::now()->format('m/d/y');
+        $date = Carbon::now()->format('d-m-Y');
 
         $datas = array('random', 'date');
 
@@ -65,9 +64,17 @@ class ClientServiceController extends Controller
     {
         $client = Client::create($request->all());
 
-        foreach ($request->createTickets as $ticket) {
-            $client->services()->attach($ticket['service_id']);
-            $client->services()->attach($ticket['num_ticket']);
+        // dd($request);
+
+        $client->tickets()->sync($request->input('tickets', []));
+
+        foreach ($request->createTickets as $facture) {
+            $client->services()->sync(
+                $facture ['service_id'], [
+
+                    'quantity' => $facture['quantity'],
+                ],
+            );
         }
 
         $status = 'A new ticket was created successfully.';
@@ -126,7 +133,7 @@ class ClientServiceController extends Controller
         // abort_if(Gate::denies('ticket_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         //delete the tickets
-        DB::table('client_service')->where('id', $id)->delete();
+        DB::table('client_service_ticket')->where('id', $id)->delete();
 
         // get list of all transactions of tickets
         // DB::table('hold')->where('id', $id)->delete();

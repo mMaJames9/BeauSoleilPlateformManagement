@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientServiceTable extends Migration
+class CreatePermissionRoleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateClientServiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_service', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('client_id');
-            $table->integer('service_id');
-            $table->string('num_ticket')->nullable();
+        Schema::create('permission_role', function (Blueprint $table) {
+            $table->integer('permission_id');
+            $table->integer('role_id');
             $table->timestamps();
+
+            $table->primary(['role_id', 'permission_id']);
         });
     }
 
@@ -29,6 +29,6 @@ class CreateClientServiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_service');
+        Schema::dropIfExists('permission_role');
     }
 }

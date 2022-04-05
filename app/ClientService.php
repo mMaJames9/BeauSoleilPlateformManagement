@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $user_id
+ * @property int $client_id
+ * @property int $service_id
+ * @property int $quantity
+ * @property Service $service
  */
 class ClientService extends Model
 {
@@ -22,13 +25,19 @@ class ClientService extends Model
     /**
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['client_id', 'service_id', 'quantity'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function service()
     {
         return $this->belongsTo(Service::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function client()
     {
         return $this->belongsTo(Client::class);
