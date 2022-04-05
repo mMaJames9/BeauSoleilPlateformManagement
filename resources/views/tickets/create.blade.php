@@ -84,10 +84,9 @@
                                     </div>
 
                                     <div class="form-group mt-4">
-                                        <button class="btn btn-success" type="submit">
+                                        <button class="btn btn-success" type="submit" href="{{ route('PrintData') }}">
                                             Enregistrer
                                         </button>
-                                        <a class="btn btn-primary" href="{{ route('PrintData') }}"> Print </a>
                                         <a class="btn btn-primary" href="{{ route('tickets.index') }}"> Retour à la
                                             liste </a>
                                     </div>

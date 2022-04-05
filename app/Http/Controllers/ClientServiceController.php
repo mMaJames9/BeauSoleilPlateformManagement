@@ -60,7 +60,7 @@ class ClientServiceController extends Controller
 
     public function PrintData()
     {
-        $printd =ClientService::all()->pluck( 'client_id', 'service_id','num_ticket', 'created_at');
+        $printd =ClientService::all()->pluck( 'client_id', 'service_id', 'created_at');
         $connector = new FilePrintConnector('/dev/usb/lp0', 'w');
         $printer = new Printer($connector);
         $printer -> text($printd);
