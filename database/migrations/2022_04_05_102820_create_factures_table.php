@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientUserTable extends Migration
+class CreateFacturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateClientUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_user', function (Blueprint $table) {
-            $table->integer('client_id');
-            $table->integer('user_id');
+        Schema::create('factures', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('client_id')->nullable();
+            $table->string('num_ticket', 6)->unique();
+            $table->integer('total_price')->nullable();
             $table->timestamps();
-
-            $table->primary(['client_id', 'user_id']);
         });
     }
 
@@ -29,6 +29,6 @@ class CreateClientUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_user');
+        Schema::dropIfExists('factures');
     }
 }

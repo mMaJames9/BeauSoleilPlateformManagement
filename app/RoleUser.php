@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property int $id
+ * @property int $role_id
  * @property int $user_id
+ * @property User $user
  */
 class RoleUser extends Model
 {
@@ -19,14 +20,22 @@ class RoleUser extends Model
      */
     protected $table = 'role_user';
 
+    /**
+     * @var array
+     */
     protected $fillable = [];
 
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);

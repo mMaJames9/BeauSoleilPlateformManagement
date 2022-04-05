@@ -18,13 +18,12 @@ class ClientServiceSeeder extends Seeder
     {
 
         $clients = Client::all();
+        $services = Service::inRandomOrder()->take(rand(1,5));
 
-        foreach($clients as $client) {
-            $services = Service::inRandomOrder()->take(rand(1,3))->pluck('id');
-
-                $client->services()->attach($services, ['num_ticket' =>
-                    Str::random(6)
-                ]);
+        foreach ($clients as $client) {
+            foreach($services as $service) {
+                $client->services()->attach($service, ['quantity' => rand(1, 5)]);
+            }
         }
     }
 }

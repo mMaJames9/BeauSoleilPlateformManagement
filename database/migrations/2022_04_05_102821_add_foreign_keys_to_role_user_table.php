@@ -14,8 +14,7 @@ class AddForeignKeysToRoleUserTable extends Migration
     public function up()
     {
         Schema::table('role_user', function (Blueprint $table) {
-            $table->foreign(['role_id', 'user_id'], 'FK_role_user')->references(['id'])->on('users')
-                ->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign(['user_id', 'role_id'], 'FK_role_user')->references(['id'])->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 

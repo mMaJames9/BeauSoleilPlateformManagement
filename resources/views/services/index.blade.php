@@ -57,7 +57,7 @@
                     <tr>
                         <th>#</th>
                         <th class="text-center">Nom Service</th>
-                        <th class="text-center">Catégorie</th>
+                        <th class="text-center">Prix</th>
                         <th class="text-center">Créée le</th>
                         <th class="text-center"></th>
                     </tr>
@@ -78,7 +78,7 @@
                             <td class="">
                                     <span class="badge bg-light-warning
                                 my-1">
-                                        {{ $service->category->label_category ?? '' }}
+                                        {{ $service->price_service ?? '' }} FCFA
                                 </span>
 >>>>>>> 36fff2f6c419cb80909b84030fa2b54973962ce0
                             </td>

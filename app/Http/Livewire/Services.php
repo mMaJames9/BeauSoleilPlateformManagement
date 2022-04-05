@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Category;
 use App\Service;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Services extends Component
@@ -18,13 +20,13 @@ class Services extends Component
         $this->categories = Category::all();
 
         $this->createTickets = [
-            ['service_id' => '']
+            ['service_id' => '', 'quantity' => 1, 'price_service' => 0]
         ];
     }
 
     public function addService()
     {
-        $this->createTickets[] = ['service_id' => ''];
+        $this->createTickets[] = ['service_id' => '', 'quantity' => 1, 'price_service' => 0];
     }
 
     public function removeService($index)

@@ -20,18 +20,21 @@ class Client extends Model
      */
     protected $fillable = ['name_client', 'phone_number', 'created_at', 'updated_at'];
 
-
     public function users()
     {
-        return $this->belongsToMany(User::class, ClientUser::class);
+        return $this->belongsToMany(User::class, ClientUser::class)
+            ->withTimestamps();
     }
 
     public function services()
     {
         return $this->belongsToMany(Service::class, ClientService::class)
-            ->withPivot(['num_ticket'])
+            ->withPivot(['quantity'])
             ->withTimestamps();
     }
 
-
+    public function factures()
+    {
+        return $this->hasMany(Facture::class);
+    }
 }

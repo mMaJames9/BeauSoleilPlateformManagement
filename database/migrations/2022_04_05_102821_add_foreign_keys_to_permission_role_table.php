@@ -14,8 +14,7 @@ class AddForeignKeysToPermissionRoleTable extends Migration
     public function up()
     {
         Schema::table('permission_role', function (Blueprint $table) {
-            $table->foreign(['permission_id', 'role_id'], 'FK_permission_role')->references(['id'])
-                ->on('permissions')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign(['permission_id', 'role_id'], 'FK_permission_role')->references(['id'])->on('permissions')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
