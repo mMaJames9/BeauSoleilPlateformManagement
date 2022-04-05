@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use generateUniqueStatistics;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use User;
+
+use Carbon\CarbonPeriod;
 
 class HomeController extends Controller
 {
@@ -15,6 +20,19 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
+public function getnumber($id)
+{
+   /*  $query = $request->get('query');
+    $users = User::where('name','like','%'.$query.'%');
+    $usersCount = $users->count();
+    $users = $users->select('*')->take(all)->get();
+    echo $usersCount;
+    print_r($users);
+    return view('home', compact('users')); */
+
+
+}
+
 
     /**
      * Show the application dashboard.
@@ -23,6 +41,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data = DB::table('clients')->count();
+        $serv = DB::table('services')->count();
+        $tick = DB::table('factures')->count();
+
+        return view('home', compact('data', 'serv','tick'));
     }
 }

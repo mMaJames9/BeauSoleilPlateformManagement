@@ -1014,22 +1014,22 @@
   margin-left: -1em;
   color: rgb(32, 14, 50);
 }
-.iconly-bulkTicket-Star .path1:before {
+.iconly-bulkfacture-Star .path1:before {
   content: "\e9c4";
   color: rgb(32, 14, 50);
   opacity: 0.4;
 }
-.iconly-bulkTicket-Star .path2:before {
+.iconly-bulkfacture-Star .path2:before {
   content: "\e9c5";
   margin-left: -1em;
   color: rgb(32, 14, 50);
 }
-.iconly-bulkTicket .path1:before {
+.iconly-bulkfacture .path1:before {
   content: "\e9c6";
   color: rgb(32, 14, 50);
   opacity: 0.4;
 }
-.iconly-bulkTicket .path2:before {
+.iconly-bulkfacture .path2:before {
   content: "\e9c7";
   margin-left: -1em;
   color: rgb(32, 14, 50);

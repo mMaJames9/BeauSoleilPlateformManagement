@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+require '../vendor/autoload.php';
 
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use App\Client;
 use App\ClientService;
+use App\Facture ;
 use App\Service;
-use App\Facture;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,13 +32,13 @@ class ClientServiceController extends Controller
 
     public function index()
     {
-        // abort_if(Gate::denies('ticket_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('facture_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $factures = Facture::with('services')->get();
 
         // dd($factures->client);
 
-        return view('tickets.index', compact('factures'));
+        return view('factures.index', compact('factures'));
     }
 
     /**
@@ -45,7 +48,7 @@ class ClientServiceController extends Controller
      */
     public function create()
     {
-        // abort_if(Gate::denies('ticket_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('facture_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
 
         $random = strtoupper(Str::random(6));
@@ -53,9 +56,19 @@ class ClientServiceController extends Controller
 
         $datas = array('random', 'date');
 
-        return view('tickets.create', compact($datas));
+        return view('factures.create', compact($datas));
     }
 
+    public function PrintData()
+    {
+        $printd =Facture::all()->pluck( 'client_id', 'service_id','total_price', 'created_at');
+        $connector = new FilePrintConnector('/dev/usb/lp0', 'w');
+        $printer = new Printer($connector);
+        $printer -> text($printd);
+        $printer -> cut();
+        $printer -> close();
+        return view('factures.PrintData', compact('printer'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -68,9 +81,9 @@ class ClientServiceController extends Controller
 
         // dd($request);
 
-        $client->tickets()->sync($request->input('tickets', []));
+        $client->factures()->find($request->input('factures', []));
 
-        foreach ($request->createTickets as $facture) {
+        foreach ($request->createfactures as $facture) {
             $client->services()->sync(
                 $facture ['service_id'], [
 
@@ -79,9 +92,10 @@ class ClientServiceController extends Controller
             );
         }
 
-        $status = 'A new ticket was created successfully.';
+        $status = 'A new facture was created successfully.';
 
-        return redirect()->route('tickets.index')->with([
+
+        return redirect()->route('factures.index')->with([
             'status' => $status,
         ]);
     }
@@ -89,25 +103,25 @@ class ClientServiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ClientService  $ticket
+     * @param  \App\ClientService  $facture
      * @return \Illuminate\Http\Response
      */
-    public function show(ClientService $ticket)
+    public function show(ClientService $facture)
     {
-        // abort_if(Gate::denies('ticket_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('facture_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ticket->load('clients','services');
+        $facture->load('clients','services');
 
-        return view('tickets.show', compact('ticket'));
+        return view('factures.show', compact('facture'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ClientService  $ticket
+     * @param  \App\ClientService  $facture
      * @return \Illuminate\Http\Response
      */
-    public function edit(ClientService $ticket)
+    public function edit()
     {
         //
     }
@@ -116,10 +130,10 @@ class ClientServiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ClientService  $ticket
+     * @param  \App\ClientService  $facture
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ClientService $ticket)
+    public function update(Request $request, ClientService $facture)
     {
         //
     }
@@ -127,22 +141,22 @@ class ClientServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ClientService  $ticket
+     * @param  \App\ClientService  $facture
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        // abort_if(Gate::denies('ticket_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('facture_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        //delete the tickets
-        DB::table('client_service_ticket')->where('id', $id)->delete();
+        //delete the factures
+        DB::table('client_service_facture')->where('id', $id)->delete();
 
-        // get list of all transactions of tickets
+        // get list of all transactions of factures
         // DB::table('hold')->where('id', $id)->delete();
 
-        $status = 'The ticket was deleted successfully.';
+        $status = 'The facture was deleted successfully.';
 
-        return redirect()->route('tickets.index')->with([
+        return redirect()->route('factures.index')->with([
             'status' => $status,
         ]);
     }

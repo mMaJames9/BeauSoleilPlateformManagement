@@ -67,6 +67,9 @@
                         <tr class="">
                             <td>{{ $loop->iteration }}</td>
                             <td class="">
+<<<<<<< HEAD
+                                <span class="badge bg-light-primary my-1">{{ $service->pivot}}</span>
+=======
                                 <span class="badge bg-light-primary
                                 my-1">
                                     {{ $service->label_service ?? '' }}
@@ -77,6 +80,7 @@
                                 my-1">
                                         {{ $service->price_service ?? '' }} FCFA
                                 </span>
+>>>>>>> 36fff2f6c419cb80909b84030fa2b54973962ce0
                             </td>
                             <td class="">{{ $service->created_at ?? '' }}</td>
                             <td class="text-center">

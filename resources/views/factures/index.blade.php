@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
 @section('page_title_header')
-    <h3>Liste des Factures</h3>
+    <h3>Liste des factures</h3>
 @endsection
 
 @section('content')
 
-    @can('ticket_create','ticket_edit','ticket_delete')
+    @can('facture_create','facture_edit','facture_delete')
         @if(session('status'))
             <script>
                 window.addEventListener("load", function () {
@@ -40,7 +40,7 @@
 
     <div style="margin-bottom: 2rem;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("tickets.create") }}">
+            <a class="btn btn-success" href="{{ route("factures.create") }}">
                 Ajouter une nouvelle facture
             </a>
         </div>
@@ -52,7 +52,7 @@
 
             </div>
             <div class="card-body">
-                <table class="table table-responsive table-lg display" id="tdtickets">
+                <table class="table table-responsive table-lg display" id="tdfactures">
                     <thead>
                     <tr>
                         <th class="text-center">Numéro</th>
@@ -81,13 +81,13 @@
                             <td class="">
                                 @foreach($facture->client as $services)
                                 <span class="badge bg-light-primary my-1">
-                                    {{ $services-> }}
+                                    {{ $services }}
                                 @endforeach
                                 </span>
                             </td>
                             <td class="">
                                 <span class="badge bg-light-primary my-1">
-                                    {{ $facture->total_price }}
+                                    {{ $facture->total_price }} FCFA
                                 </span>
                             </td>
                             <td class="">
@@ -96,7 +96,7 @@
                                 </span>
                             </td>
                             <td class="">
-                                <a class="badge bg-light-secondary" href="{{ route('tickets.edit', $facture->id) }}">
+                                <a class="badge bg-light-secondary" href="{{ route('factures.edit', $facture->id) }}">
                                     Edit
                                 </a>
 
@@ -112,7 +112,7 @@
                                         role="document">
                                         <div class="modal-content">
 
-                                            <form action="{{ route('tickets.destroy', $facture->id) }}" method="POST">
+                                            <form action="{{ route('factures.destroy', $facture->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="modal-header">
@@ -171,6 +171,8 @@
                 </table>
             </div>
 
+
+
         </div>
 
     </section>
@@ -182,7 +184,7 @@
 
     <script>
         // Simple Datatable
-        let tdtickets = document.querySelector('#tdtickets');
-        let dataTable = new simpleDatatables.DataTable(tdtickets);
+        let tdfactures = document.querySelector('#tdfactures');
+        let dataTable = new simpleDatatables.DataTable(tdfactures);
     </script>
 @endsection

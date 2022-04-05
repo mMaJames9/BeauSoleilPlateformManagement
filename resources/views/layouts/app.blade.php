@@ -15,6 +15,8 @@
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('assets/vendors/apexcharts/apexcharts.js') }}" defer></script>
     <script src="{{ asset('assets/js/pages/dashboard.js') }}" defer></script>
+    <script src="{{ asset('js/stat.js') }}"></script>
+    <script src="{{ asset('js/chart.js') }}"></script>
 
     <!-- Fonts -->
 {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -63,6 +65,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

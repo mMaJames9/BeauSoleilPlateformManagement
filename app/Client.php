@@ -35,6 +35,6 @@ class Client extends Model
 
     public function factures()
     {
-        return $this->hasMany(Facture::class);
+        return $this->hasMany(facture::class);
     }
 }

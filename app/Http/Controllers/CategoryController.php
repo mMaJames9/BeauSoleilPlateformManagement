@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Service;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller

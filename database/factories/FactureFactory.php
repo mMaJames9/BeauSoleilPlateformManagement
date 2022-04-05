@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class FactureFactory extends Factory
+class factureFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,7 @@ class FactureFactory extends Factory
     public function definition()
     {
         return [
-            'num_ticket' => $this->faker->unique()->bothify('#?#?##'),
+            'num_facture' => $this->faker->unique()->bothify('#?#?##'),
             'total_price' => $this->faker->numberBetween($min = 500, $max = 50000),
             'created_at' => now(),
             'updated_at' => now(),

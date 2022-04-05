@@ -7,7 +7,7 @@
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <div class="auth-logo">
-                        <a href="{{ route('login') }}"><img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo"></a>
+                        <a href="{{ route('login') }}"><img src="{{ asset('') }}" alt="Logo"></a>
                     </div>
                     <h1 class="auth-title">{{ __('Login') }}.</h1>
                     <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>

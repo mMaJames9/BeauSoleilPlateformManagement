@@ -11,6 +11,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use MigrationsGenerator\Models\Model;
+use Illuminate\Foundation\Bootstrap\LoadConfiguration;
 
 class ServiceController extends Controller
 {
@@ -88,7 +90,7 @@ class ServiceController extends Controller
 
         $categories = Category::all()->pluck('label_category', 'id');
 
-        $service->load('category');
+        $service->load('categories')->get();
 
         return view('services.edit', compact('categories', 'service'));
     }
