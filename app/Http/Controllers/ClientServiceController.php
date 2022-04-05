@@ -31,7 +31,9 @@ class ClientServiceController extends Controller
     {
         // abort_if(Gate::denies('ticket_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $factures = ClientService::all();
+        $factures = Facture::with('services')->get();
+
+        // dd($factures->client);
 
         return view('tickets.index', compact('factures'));
     }

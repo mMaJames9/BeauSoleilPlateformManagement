@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 class Facture extends Model
 {
     use HasFactory;
+    use \Znck\Eloquent\Traits\BelongsToThrough;
     /**
      * @var array
      */
@@ -28,5 +29,10 @@ class Facture extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function services()
+    {
+        return $this->belongsToThrough(Service::class, ClientService::class);
     }
 }
