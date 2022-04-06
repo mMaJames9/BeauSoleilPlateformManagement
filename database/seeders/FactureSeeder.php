@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use App\Client;
-use App\facture;
+use App\Facture;
 use Illuminate\Database\Seeder;
 
-class factureseeder extends Seeder
+class Factureseeder extends Seeder
 {
     /**
      * Run the database seeds.
