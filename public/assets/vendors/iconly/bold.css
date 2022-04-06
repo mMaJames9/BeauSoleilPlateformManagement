@@ -283,10 +283,10 @@
 .iconly-boldTick-Square:before {
   content: "\e955";
 }
-.iconly-boldfacture-Star:before {
+.iconly-boldTicket-Star:before {
   content: "\e956";
 }
-.iconly-boldfacture:before {
+.iconly-boldTicket:before {
   content: "\e957";
 }
 .iconly-boldTime-Circle:before {

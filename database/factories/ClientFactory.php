@@ -15,7 +15,7 @@ class ClientFactory extends Factory
     {
         return [
             'name_client' => $this->faker->unique()->name(),
-            'phone_number' => $this->faker->unique()->numerify('69#-###-###'),
+            'phone_number' => $this->faker->unique()->numerify('69#######'),
             'created_at' => now(),
             'updated_at' => now(),
         ];

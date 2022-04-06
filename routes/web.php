@@ -30,16 +30,16 @@ Auth::routes(['register' => false]);
 Route::group(['middleware' => ['auth']], function () {
     Route::redirect('/', '/login')->name('home');
 
-    Route::get('/findPriceService', 'App\Http\Controllers\ClientServiceController@findPriceService');
+    Route::get('/findPriceService', 'App\Http\Controllers\FactureServiceController@findPriceService');
     Route::get('/countservices','App\Http\Controllers\HomeController@countservices');
-    Route::get('/PrintData','App\Http\Controllers\ClientServiceController@PrintData')->name('PrintData');
+    Route::get('/PrintData','App\Http\Controllers\FactureServiceController@PrintData')->name('PrintData');
 
     Route::resource('/admin/management/categories', 'App\Http\Controllers\CategoryController');
     Route::resource('/admin/management/clients', 'App\Http\Controllers\ClientController');
     Route::resource('/admin/usermanagement/permissions', 'App\Http\Controllers\PermissionController');
     Route::resource('/admin/usermanagement/roles', 'App\Http\Controllers\RoleController');
     Route::resource('/admin/management/services', 'App\Http\Controllers\ServiceController');
-    Route::resource('/admin/management/factures', 'App\Http\Controllers\ClientServiceController');
+    Route::resource('/admin/management/factures', 'App\Http\Controllers\FactureServiceController');
     Route::resource('/admin/usermanagement/users', 'App\Http\Controllers\UserController');
 
 });

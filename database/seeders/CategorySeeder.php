@@ -18,7 +18,7 @@ class CategorySeeder extends Seeder
         Category::factory()->count(4)->create()->each(function ($category)
         {
             // Create 5 services for each category
-            $services =  Service::factory()->count(10)->create();
+            $services = Service::factory()->count(10)->create();
             $category->services()->saveMany($services);
         });
     }

@@ -4201,13 +4201,13 @@ window.tinymce.Resource.add("tinymce.plugins.emoticons", {
     fitzpatrick_scale: false,
     category: "activity"
   },
-  facture: {
+  ticket: {
     keywords: [ "event", "concert", "pass" ],
     "char": '<img data-emoticon="true" style="width:1em;height:1em;margin:0 .05em 0 .1em;vertical-align:-.1em" draggable="false" alt="\ud83c\udfab" src="1f3ab.png"/>',
     fitzpatrick_scale: false,
     category: "activity"
   },
-  factures: {
+  tickets: {
     keywords: [ "sports", "concert", "entrance" ],
     "char": '<img data-emoticon="true" style="width:1em;height:1em;margin:0 .05em 0 .1em;vertical-align:-.1em" draggable="false" alt="\ud83c\udf9f" src="1f39f.png"/>',
     fitzpatrick_scale: false,

@@ -4188,13 +4188,13 @@ window.tinymce.Resource.add("tinymce.plugins.emoticons", {
     fitzpatrick_scale: false,
     category: "activity"
   },
-  facture: {
+  ticket: {
     keywords: [ "event", "concert", "pass" ],
     "char": "\ud83c\udfab",
     fitzpatrick_scale: false,
     category: "activity"
   },
-  factures: {
+  tickets: {
     keywords: [ "sports", "concert", "entrance" ],
     "char": "\ud83c\udf9f",
     fitzpatrick_scale: false,

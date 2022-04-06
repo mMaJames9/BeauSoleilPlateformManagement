@@ -3,42 +3,53 @@
 namespace App\Http\Livewire;
 
 use App\Category;
+use App\Facture;
 use App\Service;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Services extends Component
 {
     public $services = [];
     public $categories = [];
-    public $createfactures = [];
+    public $factureDetails = [];
 
-    public function mount()
+
+    public function mount(Facture $factureDetails )
     {
+
         $this->services = Service::all();
         $this->categories = Category::all();
 
-        $this->createfactures = [
-            ['service_id' => '', 'quantity' => 1, 'price_service' => 0]
+        $this->factureDetails = $factureDetails;
+
+        $this->factureDetails = [
+            ['service_id' => '', 'quantity' => 1, 'price_service' => 0, 'montantCalcule' => '0']
         ];
     }
 
     public function addService()
     {
-        $this->createfactures[] = ['service_id' => '', 'quantity' => 1, 'price_service' => 0];
+        $this->factureDetails[] = ['service_id' => '', 'quantity' => 1, 'price_service' => 0];
     }
 
     public function removeService($index)
     {
-        unset($this->createfactures[$index]);
-        $this->createfactures = array_values($this->createfactures);
+        unset($this->factureDetails[$index]);
+        $this->factureDetails = array_values($this->factureDetails);
+    }
+
+    public function updated($key, $value)
+    {
+        if (in_array($key, ['facture.price_service', 'facture.quantity']))
+        {
+            $this->factureDetails->montantCalcule = $this->factureDetails->quantity * $this->factureDetails->price_service;
+        }
     }
 
 
     public function render()
     {
-        info($this->createfactures);
+        info($this->factureDetails);
         return view('livewire.services');
     }
 }

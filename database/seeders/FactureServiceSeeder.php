@@ -3,11 +3,12 @@
 namespace Database\Seeders;
 
 use App\Client;
+use App\Facture;
 use App\Service;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class ClientServiceSeeder extends Seeder
+class FactureServiceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,12 +18,12 @@ class ClientServiceSeeder extends Seeder
     public function run()
     {
 
-        $clients = Client::all();
-        $services = Service::inRandomOrder()->take(rand(1,5))->pluck('id');
+        $factures = Facture::all();
 
-        foreach ($clients as $client) {
+        foreach ($factures as $facture) {
+            $services = Service::inRandomOrder()->take(rand(1,5))->pluck('id');
             foreach($services as $service) {
-                $client->services()->attach($service, ['quantity' => rand(1, 5)]);
+                $facture->services()->attach($service, ['quantity' => rand(1, 5)]);
             }
         }
     }
