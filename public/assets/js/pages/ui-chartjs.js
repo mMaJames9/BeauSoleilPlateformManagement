@@ -9,6 +9,7 @@ var chartColors = {
     purple: 'rgb(153, 102, 255)',
     grey: '#EBEFF6'
 };
+
 var config1 = {
     type: "line",
     data: {

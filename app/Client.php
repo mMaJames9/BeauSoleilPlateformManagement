@@ -26,15 +26,8 @@ class Client extends Model
             ->withTimestamps();
     }
 
-    public function services()
-    {
-        return $this->belongsToMany(Service::class, ClientService::class)
-            ->withPivot(['quantity'])
-            ->withTimestamps();
-    }
-
     public function factures()
     {
-        return $this->hasMany(facture::class);
+        return $this->hasMany(Facture::class);
     }
 }

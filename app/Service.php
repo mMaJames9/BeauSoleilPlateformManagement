@@ -30,9 +30,9 @@ class Service extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    public function services()
+    public function factures()
     {
-        return $this->belongsToMany(Service::class, ClientService::class)
+        return $this->belongsToMany(Facture::class, FactureService::class)
             ->withPivot(['quantity'])
             ->withTimestamps();
     }

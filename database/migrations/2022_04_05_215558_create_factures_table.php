@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePermissionsTable extends Migration
+class CreateFacturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('factures', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('label_permission')->nullable();
+            $table->integer('client_id')->nullable();
+            $table->string('num_ticket', 6)->unique();
+            $table->integer('total_price')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('factures');
     }
 }

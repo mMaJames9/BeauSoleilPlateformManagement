@@ -283,10 +283,10 @@
 .iconly-brokenTick-Square:before {
   content: "\e955";
 }
-.iconly-brokenfacture-Star:before {
+.iconly-brokenTicket-Star:before {
   content: "\e956";
 }
-.iconly-brokenfacture:before {
+.iconly-brokenTicket:before {
   content: "\e957";
 }
 .iconly-brokenTime-Circle:before {

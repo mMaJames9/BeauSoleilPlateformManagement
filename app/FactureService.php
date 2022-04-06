@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $client_id
+ * @property int $facture_id
  * @property int $service_id
  * @property int $quantity
- * @property Service $service
+ * @property string $created_at
+ * @property string $updated_at
  */
-class ClientService extends Model
+class FactureService extends Model
 {
     use HasFactory;
     /**
@@ -20,12 +21,12 @@ class ClientService extends Model
      *
      * @var string
      */
-    protected $table = 'client_service';
+    protected $table = 'facture_service';
 
     /**
      * @var array
      */
-    protected $fillable = ['client_id', 'service_id', 'quantity'];
+    protected $fillable = ['facture_id', 'service_id', 'quantity', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -38,8 +39,8 @@ class ClientService extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function client()
+    public function facture()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Facture::class);
     }
 }
