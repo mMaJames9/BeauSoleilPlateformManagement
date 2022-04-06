@@ -84,11 +84,15 @@ class FactureServiceController extends Controller
         $this->validate($request, [
             'name_client' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'numeric', 'min:620000000', 'max:699999999'],
-            'service_id' => ['required'],
-            'quantity' => ['required', 'numeric', 'min:1']
         ]);
 
-        $facture = Facture::create($request->all());
+
+        $facture = Facture::create([
+            'num_ticket' => $request->num_ticket,
+            'total_price' => $request->total_price,
+        ]);
+
+        dd($facture);
 
         $facture->client()->sync($request->input('clients', []));
 
