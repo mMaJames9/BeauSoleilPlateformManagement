@@ -15,7 +15,7 @@
 
                     <select class="serviceName form-select {{ $errors->has('service_id') ? 'is-invalid' : '' }}"
                     style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
-                    name="factureDetails[{{$index}}][service_id]" wire:model="factureDetails.{{$index}}.{{$index}}.service_id"
+                    name="factureDetails[{{$index}}][service_id]" wire:model="factureDetails.{{$index}}.service_id"
                     id="service_id">
 
                     <option value="0" selected>-- Choisir un service --</option>
@@ -40,14 +40,14 @@
             <div class="form-group">
                 <label class="required" for="price_service">Prix Unitaire (en CFA)</label>
                 <input class="servicePrice form-control-plaintext h5 {{ $errors->has('service_id') ? 'is-invalid' : '' }}"
-                {{-- wire:model="factureDetails.price_service" --}}
+                {{-- wire:model="factureDetails.{{$index}}.price_service" --}}
                 style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
                 type="number"
                 id="price_service"
                 name="factureDetails[{{$index}}][price_service]"
                 autocomplete="off"
                 placeholder="0"
-                readonly>
+                readonly disabled>
 
                 @if($errors->has('price_service'))
                 <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('price_service') }}</div>
@@ -62,12 +62,11 @@
                 <div class="input-group input-group-lg">
 
                     <input class="form-control  {{ $errors->has('quantity') ? 'is-invalid' : '' }}"
-                           wire:model="factureDetails.quantity"
                            type="number"  min="1"
                            id="quantity"
                            name="factureDetails[{{$index}}][quantity]"
                            wire:model="factureDetails.{{$index}}.quantity"
-                           aria-label="Sizing example input"
+                           aria-label="Entrer la quantité de services"
                            aria-describedby="inputGroup-sizing-lg">
                 </div>
 
@@ -82,14 +81,14 @@
             <div class="form-group">
                 <label class="required" for="montantCalcule">Montant (en CFA)</label>
                 <input class="form-control-plaintext h5 {{ $errors->has('montantCalcule') ? 'is-invalid' : '' }}"
-                wire:model="factureDetails.montantCalcule"
+                wire:model="factureDetails.{{$index}}.montantCalcule"
                 style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
                 type="text"
                 id="montantCalcule"
                 name="factureDetails[{{$index}}][montantCalcule]"
                 autocomplete="off"
                 {{-- placeholder="0" --}}
-                readonly>
+                readonly disabled>
 
                 @if($errors->has('montantCalcule'))
                 <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('montantCalcule') }}</div>

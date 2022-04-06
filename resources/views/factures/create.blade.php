@@ -15,7 +15,7 @@
 
                         <div class="card-header mb-4">
                             <label class="required" for="num_ticket">Facture No.</label>
-                            <input type="text" readonly class="mb-3 form-control-plaintext h4" name="num_ticket"
+                            <input type="text" class="form-control-plaintext h2 mb-3" readonly disabled name="num_ticket"
                             value="{{$random}}">
                         </div>
 
@@ -50,8 +50,8 @@
                                                 <div class="form-group">
                                                     <label class="required" for="updated_at">Date Facture</label>
                                                     <input class="form-control-plaintext h5 {{ $errors->has('updated_at') ? 'is-invalid' : '' }}"
-                                                    style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
-                                                    type="text" name="updated_at" value="{{$date}}" readonly
+                                                    readonly disabled style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
+                                                    type="text" name="updated_at" value="{{$date}}"
                                                     autocomplete="off">
 
                                                     @if($errors->has('updated_at'))
