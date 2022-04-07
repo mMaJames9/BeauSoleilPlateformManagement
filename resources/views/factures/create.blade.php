@@ -89,26 +89,27 @@
                                                 <label class=" mb-0 equired h5" for="total_price">Montal Total (en CFA)</label>
                                                 <input class="form-control-plaintext h1 {{ $errors->has('total_price') ? 'is-invalid' : '' }}"
                                                 type="text" name="total_price" autocomplete="off" readonly id="total_price"
-                                                value="1000" disabled>
+                                                value=" " disabled>
 
                                                 @if($errors->has('total_price'))
                                                     <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('total_price') }}</div>
                                                     @endif
+
                                             </div>
+
 
                                         </div>
                                     </div>
 
 
                                     <div class="form-group mt-4">
-                                        <button class="btn btn-success" type="submit" href="{{ route('PrintData') }}">
+                                        <button class="btn btn-success" type="submit" >
                                             Enregistrer
                                         </button>
                                         <a class="btn btn-primary" href="{{ route('factures.index') }}">Retour à la liste</a>
                                     </div>
 
                                 </div>
-
                             </div>
                         </div>
                     </form>
@@ -141,6 +142,7 @@
                         console.log(data.price_service);
 
                         a.find('.servicePrice').val(data.price_service);
+
                     },
                     error: function () {
 

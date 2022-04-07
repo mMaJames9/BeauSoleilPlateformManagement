@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $id
@@ -25,6 +26,10 @@ class Facture extends Model
     {
         return $this->belongsTo(Client::class);
     }
+    // public function getTotalPrice(){
+    //     return $this->factures()->sum(DB::raw('total_price'));
+
+    // }
 
     public function services()
     {
@@ -32,6 +37,10 @@ class Facture extends Model
             ->withPivot(['quantity'])
             ->withTimestamps();
     }
+
+    // public function factures() {
+    //     return $this->belongsTo(Facture::class);
+    //   }
 
 
 }

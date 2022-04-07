@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $id
@@ -34,7 +35,9 @@ class FactureService extends Model
     public function service()
     {
         return $this->belongsTo(Service::class);
+
     }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -42,5 +45,6 @@ class FactureService extends Model
     public function facture()
     {
         return $this->belongsTo(Facture::class);
+        return $this->factureservice()->sum(DB::raw('quantity * services.price_service'));
     }
 }
