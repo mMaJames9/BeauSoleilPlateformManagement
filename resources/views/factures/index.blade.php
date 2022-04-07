@@ -73,7 +73,7 @@
                         </td>
                         <td class="">
                             <span class="badge bg-light-primary my-1">
-                                {{ $facture->client->name_client }}
+                                {{ $facture->client->name_client ?? '' }}
                             </span>
                         </td>
                         <td class="">
@@ -123,7 +123,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <p class="text-left">
-                                                <p>Vous êtes sur le point de supprimer <span class="fw-bold">{{
+                                                <p>Vous êtes sur le point de supprimer la facture No. <span class="fw-bold">{{
                                                 $facture->num_ticket }}</span>. Cliquez sur "Confirmer" pour
                                                     valider ou sur "Fermer" pour annuler... </p>
                                                 </p>
