@@ -15,8 +15,11 @@
 
                         <div class="card-header mb-4">
                             <label class="required" for="num_ticket">Facture No.</label>
-                            <input type="text" class="form-control-plaintext h2 mb-3" readonly disabled name="num_ticket"
-                            value="{{$random}}">
+                            <input type="text" name="num_ticket" class="form-control-plaintext h2 mb-3 {{ $errors->has('num_ticket') ? 'is-invalid' : '' }}" readonly value="{{$random}}">
+
+                            @if($errors->has('name_client'))
+                            <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('num_ticket') }}</div>
+                            @endif
                         </div>
 
                         <div class="card-body">
@@ -33,7 +36,7 @@
                                                     autocomplete="off" placeholder="Nom du Client" list="name_client" required>
                                                     <datalist id="name_client">
                                                     @foreach ($clients as $client)
-                                                        <option value={{ $client->name_client ?? '' }}>
+                                                        <option value="{{ $client->name_client ?? '' }}">
                                                     @endforeach
                                                     </datalist>
 
@@ -50,7 +53,7 @@
                                                 <div class="form-group">
                                                     <label class="required" for="updated_at">Date Facture</label>
                                                     <input class="form-control-plaintext h5 {{ $errors->has('updated_at') ? 'is-invalid' : '' }}"
-                                                    readonly disabled style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
+                                                    readonly style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
                                                     type="text" name="updated_at" value="{{$date}}"
                                                     autocomplete="off">
 
@@ -77,35 +80,58 @@
                                             </div>
                                         </div>
 
-                                    @livewire('services')
+                                        <div class=" mb-4">
+                                            <div class="form-group">
+                                                <label class="required" for="service_id">Selectionner les
+                                                    services</label>
 
-                                    <div class="row" style="margin-top: 10rem;">
-                                        <div class="col-7">
+                                                    <select class="choices form-select-lg multiple-remove " multiple="multiple {{ $errors->has('service_id') ? 'is-invalid' : '' }}"
+                                                    style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
+                                                    name="service_id[]" id="service_id">
 
-                                        </div>
-                                        <div class="col d-flex justify-content-end">
+                                                    <option value="0" selected>-- Choisir un service --</option>
+                                                    @foreach($categories as $category)
+                                                    <optgroup label="{{ $category->label_category }}">
+                                                        @foreach($services as $service)
+                                                        @if($service->category_id == $category->id)
+                                                        <option value="{{$service->id}}">{{ $service->label_service }} : {{ $service->price_service }} FCFA</option>
+                                                        @endif
+                                                        @endforeach
+                                                    </optgroup>
+                                                    @endforeach
+                                                </select>
 
-                                            <div class="form-group text-right">
-                                                <label class=" mb-0 equired h5" for="total_price">Montal Total (en CFA)</label>
-                                                <input class="form-control-plaintext h1 {{ $errors->has('total_price') ? 'is-invalid' : '' }}"
-                                                type="text" name="total_price" autocomplete="off" readonly id="total_price"
-                                                value="1000" disabled>
-
-                                                @if($errors->has('total_price'))
-                                                    <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('total_price') }}</div>
-                                                    @endif
+                                                @if($errors->has('service_id'))
+                                                <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('service_id') }}</div>
+                                                @endif
                                             </div>
-
                                         </div>
-                                    </div>
 
+                                        <div class="row" style="margin-top: 6rem;">
+                                            <div class="col-7">
 
-                                    <div class="form-group mt-4">
-                                        <button class="btn btn-success" type="submit" href="{{ route('PrintData') }}">
-                                            Enregistrer
-                                        </button>
-                                        <a class="btn btn-primary" href="{{ route('factures.index') }}">Retour à la liste</a>
-                                    </div>
+                                            </div>
+                                            <div class="col d-flex justify-content-end">
+
+                                                <div class="form-group text-right">
+                                                    <label class="mb-0 equired h6" for="total_price">Montal Total (en CFA)</label>
+                                                    <input class="totalPrice form-control-plaintext h1 {{ $errors->has('total_price') ? 'is-invalid' : '' }}"
+                                                    type="text" name="total_price" autocomplete="off" readonly id="total_price">
+
+                                                    @if($errors->has('total_price'))
+                                                        <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('total_price') }}</div>
+                                                        @endif
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mt-4">
+                                            <button class="btn btn-success" type="submit" href="{{ route('PrintData') }}">
+                                                Enregistrer
+                                            </button>
+                                            <a class="btn btn-primary" href="{{ route('factures.index') }}">Retour à la liste</a>
+                                        </div>
 
                                 </div>
 
@@ -122,59 +148,5 @@
 
 @section('scripts')
     @parent
-
-    <script>
-        $(document).ready(function () {
-            $(document).on('change', '.serviceName', function () {
-                var service_id = $(this).val();
-
-                var a = $(this).parent().parent().parent();
-                console.log(service_id);
-                var op = "";
-
-                $.ajax({
-                    type: 'get',
-                    url: '{!!URL::to('findPriceService')!!}',
-                    data: {'id': service_id},
-                    dataType: 'json',
-                    success: function (data) {
-                        console.log(data.price_service);
-
-                        a.find('.servicePrice').val(data.price_service);
-                    },
-                    error: function () {
-
-                    }
-                });
-            })
-        })
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $(document).on('change', '.quantity', function () {
-                var montantCalcule = $(this).val();
-
-                var a = $(this).parent();
-                console.log(montantCalcule);
-                var op = "";
-
-                $.ajax({
-                    type: 'get',
-                    url: '{!!URL::to('findPriceService')!!}',
-                    data: {'id': service_id},
-                    dataType: 'json',
-                    success: function (data) {
-                        console.log(data.price_service);
-
-                        a.find('.servicePrice').val(data.price_service);
-                    },
-                    error: function () {
-
-                    }
-                });
-            })
-        })
-    </script>
 
 @endsection

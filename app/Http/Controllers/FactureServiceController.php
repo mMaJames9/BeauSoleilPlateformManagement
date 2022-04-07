@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 require '../vendor/autoload.php';
 
+use App\Category;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use App\Client;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class FactureServiceController extends Controller
 {
@@ -54,10 +56,13 @@ class FactureServiceController extends Controller
 
         $clients = Client::all();
 
+        $services = Service::all();
+        $categories = Category::all();
+
         $random = strtoupper(Str::random(6));
         $date = Carbon::now()->format('d-m-Y');
 
-        $datas = array('random', 'date');
+        $datas = array('random', 'date', 'services', 'categories');
 
         return view('factures.create', compact($datas, 'clients'));
     }
@@ -84,20 +89,18 @@ class FactureServiceController extends Controller
         $this->validate($request, [
             'name_client' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'numeric', 'min:620000000', 'max:699999999'],
+            'num_ticket' => ['required', 'string', 'min:6', 'max:6', Rule::unique('factures')],
+            // 'total_price' => ['required', 'numeric'],
         ]);
 
 
-        $facture = Facture::create([
-            'num_ticket' => $request->num_ticket,
-            'total_price' => $request->total_price,
-        ]);
+        $facture = Facture::create($request->all());
 
         dd($facture);
 
-        $facture->client()->sync($request->input('clients', []));
-
-        foreach ($request->facture as $facture) {
-            $facture->services()->sync($facture ['service_id'], ['quantity' => $facture['quantity']]);
+        foreach ($request->factureDetails as $factureDetail) {
+            $factureDetail->services()->attach($factureDetail['service_id'],
+            ['quantity' => $factureDetail['quantity']]);
         }
 
         $status = 'A new facture was created successfully.';
@@ -157,7 +160,7 @@ class FactureServiceController extends Controller
         // abort_if(Gate::denies('facture_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         //delete the factures
-        DB::table('client_service')->where('id', $id)->delete();
+        DB::table('factures')->where('id', $id)->delete();
 
         // get list of all transactions of factures
         // DB::table('hold')->where('id', $id)->delete();
