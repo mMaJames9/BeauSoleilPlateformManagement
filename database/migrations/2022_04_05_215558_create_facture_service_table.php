@@ -17,7 +17,6 @@ class CreateFactureServiceTable extends Migration
             $table->increments('id');
             $table->integer('facture_id');
             $table->integer('service_id');
-            $table->integer('quantity')->nullable();
             $table->timestamps();
         });
     }
