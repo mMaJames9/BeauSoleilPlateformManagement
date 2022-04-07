@@ -79,7 +79,7 @@
                         <td class="">
                             @foreach ($facture->services as $service)
                             <span class="badge bg-light-primary my-1">
-                                {{ $service->label_service }} : {{ $service->pivot->quantity }}
+                                {{ $service->label_service }}
                             </span>
                             @endforeach
                         </td>

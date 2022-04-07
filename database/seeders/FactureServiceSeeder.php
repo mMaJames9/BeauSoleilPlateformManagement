@@ -23,7 +23,7 @@ class FactureServiceSeeder extends Seeder
         foreach ($factures as $facture) {
             $services = Service::inRandomOrder()->take(rand(1,5))->pluck('id');
             foreach($services as $service) {
-                $facture->services()->attach($service, ['quantity' => rand(1, 5)]);
+                $facture->services()->attach($service);
             }
         }
     }

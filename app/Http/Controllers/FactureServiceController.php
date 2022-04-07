@@ -9,6 +9,7 @@ use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use App\Client;
 use App\FactureService;
 use App\Facture ;
+use App\Http\Livewire\Services;
 use App\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -38,9 +39,12 @@ class FactureServiceController extends Controller
 
         $factures = Facture::with('client')->get();
 
+
+
         // $factures = Facture::with('services')->get();
 
         // dd($factures->client);
+
 
         return view('factures.index', compact( 'factures'));
     }
@@ -50,7 +54,7 @@ class FactureServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Services $services)
     {
         // abort_if(Gate::denies('facture_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -63,6 +67,16 @@ class FactureServiceController extends Controller
         $date = Carbon::now()->format('d-m-Y');
 
         $datas = array('random', 'date', 'services', 'categories');
+
+
+        // foreach($sum as $facture){
+        //     $facture->items = 0;
+        //     foreach($facture->services as $service ){
+        //         $facture->items += $service->pivot->quantity;
+
+        //     }
+
+        // }
 
         return view('factures.create', compact($datas, 'clients'));
     }
@@ -148,6 +162,7 @@ class FactureServiceController extends Controller
     {
         //
     }
+
 
     /**
      * Remove the specified resource from storage.

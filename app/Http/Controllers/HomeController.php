@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use generateUniqueStatistics;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use User;
-
+use App\Facture;
+use App\Service;
 use Carbon\CarbonPeriod;
 
 class HomeController extends Controller
@@ -41,10 +43,19 @@ public function getnumber($id)
      */
     public function index()
     {
-        $data = DB::table('clients')->count();
-        $serv = DB::table('services')->count();
-        $tick = DB::table('factures')->count();
+        $data = Client::where('created_at', '>',now()->subMonth(1))->count();
+        $serv = Service::all()->count();
+        $tick = Facture::where('created_at', '>',now()->subMonth(1))->count();
+        $datas = array('random', 'date');
+        $fact= Facture::where('created_at', '>',now()->subMonth(1))->sum('total_price');
 
-        return view('home', compact('data', 'serv','tick'));
+        // $factures= Facture::where('total_price')->withSum(['getTotalPrice'=>function($query){
+        //         $query->where('created_at', '>',now()->subMonth(1));
+        //     }],'price_service')
+
+        // ->get();
+
+
+        return view('home', compact('data', 'serv','tick', 'fact'));
     }
 }

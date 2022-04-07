@@ -33,7 +33,6 @@ class Service extends Model
     public function factures()
     {
         return $this->belongsToMany(Facture::class, FactureService::class)
-            ->withPivot(['quantity'])
             ->withTimestamps();
     }
 }
