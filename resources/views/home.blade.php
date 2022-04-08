@@ -17,11 +17,13 @@
                 </div>
 
                 <div class="page-content">
-                    <section class="row">
-                        <div class="col-12 col-lg-9">
+                    <section class="row" style="margin-top: 10rem;">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-6">
                             <div class="row">
-                                <div class="col-xl-3 col-md-6">
-                                    <a href=" " class="card bg-warning hoverable card-xl-stretch mb-xl-8">
+                                <div class="col-6">
+                                    <a href=" " class="card bg-secondary hoverable card-xl-stretch mb-xl-8">
                                         <div class="text-white card-body card-6">
                                                 <span class="rotate">
                                                     <i class="fas fa-user display-4 card-icon"></i>
@@ -34,7 +36,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-xl-3 col-md-6">
+                                <div class="col-6">
                                     <a href="" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
                                         <div class="text-white card-body card-4">
                                                 <span class="rotate"><i class="fas fa-cube fa-4x display-4 card-icon text-white"></i></span>
@@ -44,7 +46,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-xl-3 col-md-6">
+                                <div class="col-6">
                                     <a href="" class="card bg-warning hoverable card-xl-stretch mb-xl-8">
                                         <div class="text-white card-body card-4">
                                                 <span class="rotate"><i class="fas fa-cube fa-4x display-4 card-icon text-white"></i></span>
@@ -53,8 +55,8 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <a href="" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
+                                <div class="col-6">
+                                    <a href="" class="card bg-info hoverable card-xl-stretch mb-xl-8">
                                         <div class="text-white card-body card-4">
                                                 <span class="rotate"><i class="fas fa-cube fa-4x display-4 card-icon text-white"></i></span>
                                 <div class="text-inverse-primary fw-bolder card-count fs-2 mb-2 mt-5 amount-position">
