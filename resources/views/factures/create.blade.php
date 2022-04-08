@@ -3,20 +3,6 @@
 @section('page_title_header')
     <h3>Factures</h3>
 @endsection
-<script>
-    $(document).ready(function()
-    {
-    $('.qty').on('keyup',function() {
-    var quantities = $('.qty');
-    var prices = $('.price');
-    var total = 0;
-   $.each(quantities, (index, qty) => {
-        total += parseInt($(qty).val() || 0) + parseFloat($(prices[index]).val() || 0)
-    });
-    $("#total_price").html(total_price);
-});
-    });
-</script>
 @section('content')
     <section id="create-facture">
         <div class="row">
@@ -94,7 +80,7 @@
                                         </div>
 
                                         <div class=" mb-4">
-                                            <div class="form-group">
+                                            <div id="myDiv" class="form-group">
                                                 <label class="required" for="service_id">Selectionner les
                                                     services</label>
 
@@ -107,21 +93,16 @@
                                                         $total_price = 0;
                                                     @endphp
                                                     @foreach($categories as $category)
-                                                    <optgroup class="servicePrice" label="{{ $category->label_category }}">
+                                                    <optgroup  class="servicePrice" label="{{ $category->label_category }}">
                                                         @foreach($services as $service)
                                                         @if($service->category_id == $category->id)
-                                                        <option value="{{$service->id}}">{{ $service->label_service }} : {{ $service->price_service }} FCFA</option>
+                                                        <option value="{{$service->id}}">{{ $service->label_service }} : {{ $service->price_service }} FCFA </option>
                                                         @endif
                                                         @endforeach
                                                     </optgroup>
-                                                    @php
-                                                        $total_price += $service->price_service+$service->price_service ;@endphp
-                                                    @endphp
                                                     @endforeach
 
                                                 </select>
-
-
                                                 @if($errors->has('service_id'))
                                                 <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('service_id') }}</div>
                                                 @endif
@@ -148,6 +129,8 @@
 
                                         <div class="cart-footer">
                                             <h6> Total price:{{$total_price}}
+                                            </div>
+
 
                                 </div>
                             </div>
