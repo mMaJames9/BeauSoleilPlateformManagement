@@ -37,7 +37,7 @@ class FactureServiceController extends Controller
     {
         // abort_if(Gate::denies('facture_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $factures = Facture::with('client')->get();
+        $factures = Facture::with('client')->orderBy('created_at', 'desc')->get();
 
 
 
@@ -58,25 +58,15 @@ class FactureServiceController extends Controller
     {
         // abort_if(Gate::denies('facture_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::all();
+        $clients = Client::all()->sortByDesc("created_at");
 
-        $services = Service::all();
-        $categories = Category::all();
+        $services = Service::all()->sortByDesc("created_at");
+        $categories = Category::all()->sortByDesc("created_at");
 
         $random = strtoupper(Str::random(6));
         $date = Carbon::now()->format('d-m-Y');
 
         $datas = array('random', 'date', 'services', 'categories');
-
-
-        // foreach($sum as $facture){
-        //     $facture->items = 0;
-        //     foreach($facture->services as $service ){
-        //         $facture->items += $service->pivot->quantity;
-
-        //     }
-
-        // }
 
         return view('factures.create', compact($datas, 'clients'));
     }
@@ -92,6 +82,7 @@ class FactureServiceController extends Controller
 
     //     return view('factures.PrintData', compact('printer'));
     // }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -107,15 +98,20 @@ class FactureServiceController extends Controller
             // 'total_price' => ['required', 'numeric'],
         ]);
 
+        $client = Client::create([
+            'name_client' => $request->input('name_client'),
+            'phone_number' => $request->input('phone_number'),
+        ]);
 
-        $facture = Facture::create($request->all());
+        $facture = Facture::create([
+            'client_id' => $client->id,
+           'num_ticket' => $request->input('num_ticket'),
+           'total_price' => $request->input('total_price'),
+        ]);
 
-        dd($facture);
+        $facture->services()->sync($request->input('services', []));
 
-        foreach ($request->factureDetails as $factureDetail) {
-            $factureDetail->services()->attach($factureDetail['service_id'],
-            ['quantity' => $factureDetail['quantity']]);
-        }
+        // dd($facture);
 
         $status = 'A new facture was created successfully.';
 

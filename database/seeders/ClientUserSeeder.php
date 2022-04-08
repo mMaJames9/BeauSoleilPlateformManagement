@@ -16,7 +16,7 @@ class ClientUserSeeder extends Seeder
     public function run()
     {
         // Get all the roles attaching up to 3 random roles to each user
-        $users = User::all();
+        $users = User::all()->sortByDesc("created_at");
 
         // Populate the pivot table
         Client::all()->each(function ($client) use ($users) {

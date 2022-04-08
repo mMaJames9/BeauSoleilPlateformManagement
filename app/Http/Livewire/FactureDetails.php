@@ -19,8 +19,8 @@ class FactureDetails extends Component
     {
         $this->servicePrice = [];
 
-        $this->services = Service::all();
-        $this->categories = Category::all();
+        $this->services = Service::all()->sortByDesc("created_at");
+        $this->categories = Category::all()->sortByDesc("created_at");
 
         $this->factureDetails = [
             ['service_id' => '', 'price_service' => 0, 'quantity' => 1, 'amountEachService' => 0]

@@ -82,27 +82,36 @@
 
                                         <div class=" mb-4">
                                             <div class="form-group">
-                                                <label class="required" for="service_id">Selectionner les
-                                                    services</label>
+                                                <label class="required" for="services">Selectionner les services</label>
 
-                                                    <select class="choices form-select-lg multiple-remove " multiple="multiple {{ $errors->has('service_id') ? 'is-invalid' : '' }}"
+                                                <select class="choices form-select-lg multiple-remove " multiple="multiple {{ $errors->has('services') ? 'is-invalid' : '' }}"
                                                     style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
-                                                    name="service_id[]" id="service_id">
+                                                    name="services[]" id="services">
 
-                                                    <option value="0" selected>-- Choisir un service --</option>
+                                                    <option value="0">-- Choisir un service --</option>
+
                                                     @foreach($categories as $category)
+
                                                     <optgroup label="{{ $category->label_category }}">
-                                                        @foreach($services as $service)
+
+                                                        @foreach($services as $id => $service)
+
                                                         @if($service->category_id == $category->id)
-                                                        <option value="{{$service->id}}">{{ $service->label_service }} : {{ $service->price_service }} FCFA</option>
+
+                                                        <option value="{{ $service->id }}" {{ in_array($service->id, old('services', [])) ? 'selected' : '' }}>{{ $service->label_service }} : {{ $service->price_service}} FCFA</option>
+
                                                         @endif
+
                                                         @endforeach
+
                                                     </optgroup>
+
                                                     @endforeach
+
                                                 </select>
 
-                                                @if($errors->has('service_id'))
-                                                <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('service_id') }}</div>
+                                                @if($errors->has('services'))
+                                                <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('services') }}</div>
                                                 @endif
                                             </div>
                                         </div>

@@ -18,7 +18,7 @@ class FactureServiceSeeder extends Seeder
     public function run()
     {
 
-        $factures = Facture::all();
+        $factures = Facture::all()->sortByDesc("created_at");
 
         foreach ($factures as $facture) {
             $services = Service::inRandomOrder()->take(rand(1,5))->pluck('id');
