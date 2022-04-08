@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page_title_header')
-    <h3>Factures</h3>
+    <h3>Liste des Factures</h3>
 @endsection
 
 @section('content')
@@ -53,7 +53,7 @@
                                                 <div class="form-group">
                                                     <label class="required" for="updated_at">Date Facture</label>
                                                     <input class="form-control-plaintext h5 {{ $errors->has('updated_at') ? 'is-invalid' : '' }}"
-                                                    readonly style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
+                                                    readonly disabled style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
                                                     type="text" name="updated_at" value="{{$date}}"
                                                     autocomplete="off">
 
@@ -79,60 +79,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        {{-- <div class=" mb-4">
-                                            <div class="form-group">
-                                                <label class="required" for="services">Selectionner les services</label>
-
-                                                <select class="choices form-select-lg multiple-remove " multiple="multiple {{ $errors->has('services') ? 'is-invalid' : '' }}"
-                                                    style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
-                                                    name="services[]" id="services">
-
-                                                    <option value="0">-- Choisir un service --</option>
-
-                                                    @foreach($categories as $category)
-
-                                                    <optgroup label="{{ $category->label_category }}">
-
-                                                        @php $total = 0; @endphp
-                                                        @foreach($services as $id => $service)
-
-                                                        @if($service->category_id == $category->id)
-
-                                                        <option value="{{ $service->id }}" {{ in_array($service->id, old('services', [])) ? 'selected' : '' }}>{{ $service->label_service }} : {{ $service->price_service}} FCFA</option>
-
-                                                        @endif
-
-                                                        @endforeach
-
-                                                    </optgroup>
-                                                    @endforeach
-
-                                                </select>
-
-                                                @if($errors->has('services'))
-                                                <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('services') }}</div>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="row" style="margin-top: 6rem;">
-                                            <div class="col-7">
-
-                                            </div>
-                                            <div class="col d-flex justify-content-end">
-
-                                                <div class="form-group text-right">
-                                                    <label class="mb-0 equired h5" for="total_price">Montal Total (en CFA)</label>
-                                                    <input class="form-control-plaintext h1 {{ $errors->has('total_price') ? 'is-invalid' : '' }}" type="text" name="total_price" autocomplete="off" readonly id="total_price" value="{{ $total }}">
-
-                                                    @if($errors->has('total_price'))
-                                                        <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('total_price') }}</div>
-                                                        @endif
-                                                </div>
-
-                                            </div>
-                                        </div> --}}
 
                                         @livewire('facture-details')
 

@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 require '../vendor/autoload.php';
 
 use App\Category;
-use Mike42\Escpos\Printer;
-use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
-use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use App\Client;
 use App\FactureService;
 use App\Facture ;
@@ -15,9 +12,11 @@ use App\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
+use LaravelDaily\Invoices\Classes\Buyer;
+use LaravelDaily\Invoices\Invoice;
 
 
 class FactureServiceController extends Controller
@@ -41,13 +40,6 @@ class FactureServiceController extends Controller
 
         $factures = Facture::with('client')->orderBy('created_at', 'desc')->get();
 
-
-
-        // $factures = Facture::with('services')->get();
-
-        // dd($factures->client);
-
-
         return view('factures.index', compact( 'factures'));
     }
 
@@ -67,23 +59,11 @@ class FactureServiceController extends Controller
 
         $random = strtoupper(Str::random(6));
         $date = Carbon::now()->format('d-m-Y');
-        // $datac = DB::table("services")
-	    // ->select(DB::raw("SUM(price_service) as count"))
-	    // ->orderBy("created_at")
-	    // ->groupBy(DB::raw("created_at"))
-	    // ->get();
         $balance = DB::table('services')->where('id')->sum('Price_service');
 
         $datas = array('random', 'date', 'services', 'categories');
 
         return view('factures.create', compact($datas, 'clients'));
-    }
-
-    public function PrintData()
-    {
-        $printd =Facture::all()->pluck( 'client_id', 'service_id','total_price', 'created_at');
-
-    //     return view('factures.PrintData', compact('printer'));
     }
 
     /**

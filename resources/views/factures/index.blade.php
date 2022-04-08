@@ -6,7 +6,7 @@
 
 @section('content')
 
-    @can('facture_create','facture_edit','facture_delete')
+    {{-- @can('facture_create','facture_edit','facture_delete') --}}
         @if(session('status'))
             <script>
                 window.addEventListener("load", function () {
@@ -36,7 +36,7 @@
                 });
             </script>
         @endif
-    @endcan
+    {{-- @endcan --}}
 
     <div style="margin-bottom: 2rem;" class="row">
         <div class="col-lg-12">
