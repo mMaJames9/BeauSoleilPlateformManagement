@@ -82,7 +82,7 @@
                                         @livewire('facture-details')
 
                                         <div class="form-group mt-4">
-                                            <button class="btn btn-success" type="submit" href="{{ route('PrintData') }}">
+                                            <button class="btn btn-success" type="submit">
                                                 Enregistrer
                                             </button>
                                             <a class="btn btn-warning" href="{{ route('factures.index') }}">Retour à la liste</a>
