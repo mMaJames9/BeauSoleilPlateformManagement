@@ -103,6 +103,9 @@
                                                     name="service_id[]" id="service_id">
 
                                                     <option class="servicePrice" value="0" selected>-- Choisir un service --</option>
+                                                    @php
+                                                        $total_price = 0;
+                                                    @endphp
                                                     @foreach($categories as $category)
                                                     <optgroup class="servicePrice" label="{{ $category->label_category }}">
                                                         @foreach($services as $service)
@@ -111,6 +114,9 @@
                                                         @endif
                                                         @endforeach
                                                     </optgroup>
+                                                    @php
+                                                        $total_price += $service->price_service+$service->price_service ;@endphp
+                                                    @endphp
                                                     @endforeach
 
                                                 </select>
@@ -140,6 +146,9 @@
                                             <a class="btn btn-warning" href="{{ route('factures.index') }}">Retour à la liste</a>
                                         </div>
 
+                                        <div class="cart-footer">
+                                            <h6> Total price:{{$total_price}}
+
                                 </div>
                             </div>
                         </div>
@@ -148,32 +157,6 @@
             </div>
         </div>
     </section>
-< <script>
-    $(document).ready(function () {
-        $(document).on('change', '.serviceName', function () {
-            var service_id = $(this).val();
-
-            var a = $(this).parent().parent().parent();
-            console.log(service_id);
-            var op = "";
-
-            $.ajax({
-                type: 'get',
-                url: '{!!URL::to('findPriceService')!!}',
-                data: {'id': service_id},
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data.price_service);
-
-                    a.find('.servicePrice').val(data.price_service);
-                },
-                error: function () {
-
-                }
-            });
-        })
-    })
-</script>
 
 @endsection
 

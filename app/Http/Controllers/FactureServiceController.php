@@ -5,6 +5,7 @@ require '../vendor/autoload.php';
 
 use App\Category;
 use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use App\Client;
 use App\FactureService;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+
 
 class FactureServiceController extends Controller
 {
@@ -87,17 +89,19 @@ class FactureServiceController extends Controller
         return view('factures.create', compact($datas, 'clients', 'balance'));
     }
 
-    // public function PrintData()
-    // {
-    //     $printd =Facture::all()->pluck( 'client_id', 'service_id','total_price', 'created_at');
-    //     // $connector = new FilePrintConnector('/dev/usb/lp0', 'w');
-    //     // $printer = new Printer($connector);
-    //     $printer -> text($printd);
-    //     $printer -> cut();
-    //     $printer -> close();
+    public function PrintData()
+    {
+        $printd =Facture::all()->pluck( 'client_id', 'service_id','total_price', 'created_at');
 
-    //     return view('factures.PrintData', compact('printer'));
-    // }
+        $connector = new WindowsPrintConnector(" ");;
+        $printer = new Printer($connector);
+        $printer -> text($printd);
+        $printer -> cut();
+        $printer -> close();
+
+
+        return view('factures.PrintData', compact('printer'));
+    }
     /**
      * Store a newly created resource in storage.
      *
