@@ -6,7 +6,7 @@
 
 @section('content')
 
-    @can('permission_create','permission_edit','permission_delete')
+    {{-- @can('permission_create','permission_edit','permission_delete') --}}
         @if(session('status'))
             <script>
                 window.addEventListener("load", function() {
@@ -15,7 +15,7 @@
                         duration: 5000,
                         close:true,
                         gravity:"top",
-                        position: "center",
+                        position: "right",
                         backgroundColor: "#198754",
                     }).showToast();
                 });
@@ -30,13 +30,13 @@
                         duration: 5000,
                         close:true,
                         gravity:"top",
-                        position: "center",
+                        position: "right",
                         backgroundColor: "#dc3545",
                     }).showToast();
                 });
             </script>
         @endif
-    @endcan
+    {{-- @endcan --}}
 
     <div style="margin-bottom: 2rem;" class="row">
         <div class="col-lg-12">

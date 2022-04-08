@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 require '../vendor/autoload.php';
 
 use App\Category;
-use Mike42\Escpos\Printer;
-use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
-use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use App\Client;
 use App\FactureService;
 use App\Facture ;
@@ -15,9 +12,13 @@ use App\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\URL;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use NunoMaduro\Collision\Adapters\Phpunit\Printer;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
+use LaravelDaily\Invoices\Classes\Buyer;
+use LaravelDaily\Invoices\Invoice;
 
 
 class FactureServiceController extends Controller
@@ -41,13 +42,6 @@ class FactureServiceController extends Controller
 
         $factures = Facture::with('client')->orderBy('created_at', 'desc')->get();
 
-
-
-        // $factures = Facture::with('services')->get();
-
-        // dd($factures->client);
-
-
         return view('factures.index', compact( 'factures'));
     }
 
@@ -67,7 +61,6 @@ class FactureServiceController extends Controller
 
         $random = strtoupper(Str::random(6));
         $date = Carbon::now()->format('d-m-Y');
-
         $balance = DB::table('services')->where('id')->sum('Price_service');
 
         $datas = array('random', 'date', 'services', 'categories');
@@ -78,13 +71,9 @@ class FactureServiceController extends Controller
     public function PrintData()
     {
         $printd =Facture::all()->pluck( 'client_id', 'service_id','total_price', 'created_at');
-        $connector = new WindowsPrintConnector(' ');
-        $printer= new Printer($connector);
-        $printer ->text($printd);
-        $printer ->cut();
-        $printer -> close();
 
-     return view('factures.PrintData', compact('printer'));
+
+     return view('factures.PrintData', compact('printd'));
     }
 
     /**
@@ -117,9 +106,7 @@ class FactureServiceController extends Controller
 
         // dd($facture);
 
-
-
-        $status = 'A new facture was created successfully.';
+        $status = 'La nouvelle facture a été ajouté avec succès';
 
 
         return redirect()->route('factures.index')->with([
@@ -181,7 +168,7 @@ class FactureServiceController extends Controller
         // get list of all transactions of factures
         // DB::table('hold')->where('id', $id)->delete();
 
-        $status = 'The facture was deleted successfully.';
+        $status = 'Cette facture a été supprimé avec succès';
 
         return redirect()->route('factures.index')->with([
             'status' => $status,

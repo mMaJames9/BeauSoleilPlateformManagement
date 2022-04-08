@@ -35,7 +35,7 @@ document.getElementById('top-center').addEventListener('click', () => {
         duration: 3000,
         close:true,
         gravity:"top",
-        position: "center",
+        position: "right",
         backgroundColor: "#4fbe87",
     }).showToast();
 })
@@ -65,7 +65,7 @@ document.getElementById('bottom-center').addEventListener('click', () => {
         duration: 3000,
         close:true,
         gravity:"bottom",
-        position: "center",
+        position: "right",
         backgroundColor: "#4fbe87",
     }).showToast();
 })

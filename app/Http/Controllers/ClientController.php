@@ -54,7 +54,7 @@ class ClientController extends Controller
 
         $client = Client::create($request->all());
 
-        $status = 'A new client was created successfully.';
+        $status = 'Le nouveau client a été ajouté avec succès';
 
         return redirect()->route('clients.index')->with([
             'status' => $status,
@@ -113,7 +113,7 @@ class ClientController extends Controller
         // get list of all transactions of clients
         // DB::table('hold')->where('id', $id)->delete();
 
-        $status = 'The client was deleted successfully.';
+        $status = 'Ce client a été supprimé avec succès';
 
         return redirect()->route('clients.index')->with([
             'status' => $status,
