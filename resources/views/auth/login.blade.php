@@ -7,10 +7,14 @@
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <div class="auth-logo">
-                        <a href="{{ route('login') }}"><img src="{{ asset('') }}" alt="Logo"></a>
+                        <a href="{{ route('login') }}">
+                            <img class="mb-4" src="{{ asset('assets/images/logo/logo.jpeg') }}" alt="Logo">
+                            <span class="text-success h1">Beau </span><span class="text-warning h1">Soleil</span>
+                    </h3>
+                        </a>
                     </div>
                     <h1 class="auth-title">{{ __('Login') }}.</h1>
-                    <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
+                    <p class="auth-subtitle mb-5">Entrer votre adresse email et votre mot de passe</p>
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

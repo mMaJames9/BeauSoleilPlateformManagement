@@ -5,7 +5,8 @@
             <div class="logo">
                 <a href="#">
                     <h3 class="mt-3 page-heading">
-                        <a href=""><img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo"></a>
+                        <img class="pb-2" src="{{ asset('assets/images/logo/logo.jpeg') }}" alt="Logo">
+                        <span class="text-success">Beau </span><span class="text-warning">Soleil</span>
                     </h3>
                 </a>
             </div>
