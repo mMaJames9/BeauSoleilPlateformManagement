@@ -29,7 +29,7 @@
                                             <div class="fw-bolder card-count fs-2 mb-2 mt-5">
                                                 {{$data}} </div>
                                             <div class="fw-bold fs-7">
-                                                Clients Total  du mois
+                                                Total des Clients du Mois
                                             </div>
                                         </div>
                                     </a>
@@ -40,7 +40,7 @@
                                                 <span class="rotate"><i class="fas fa-cube fa-4x display-4 card-icon text-white"></i></span>
                                             <div class="text-inverse-primary fw-bolder card-count fs-2 mb-2 mt-5 amount-position">
                                             {{$serv}}</div>
-                                            <div class="fw-bold text-inverse-primary fs-7">Total services enregister </div>
+                                            <div class="fw-bold text-inverse-primary fs-7">Total des services</div>
                                         </div>
                                     </a>
                                 </div>
@@ -49,7 +49,7 @@
                                         <div class="text-white card-body card-4">
                                                 <span class="rotate"><i class="fas fa-cube fa-4x display-4 card-icon text-white"></i></span>
                                             <div class="text-inverse-primary fw-bolder card-count fs-2 mb-2 mt-5 amount-position">{{$tick}}</div>
-                                            <div class="fw-bold text-inverse-primary fs-7">Factures Total  du mois </div>
+                                            <div class="fw-bold text-inverse-primary fs-7">Total des Factures du Mois</div>
                                         </div>
                                     </a>
                                 </div>
@@ -59,7 +59,7 @@
                                                 <span class="rotate"><i class="fas fa-cube fa-4x display-4 card-icon text-white"></i></span>
                                 <div class="text-inverse-primary fw-bolder card-count fs-2 mb-2 mt-5 amount-position">
                                       {{$fact}} CFA</div>
-                                      <div class="fw-bold text-inverse-primary fs-7">Total vente du mois</div>
+                                      <div class="fw-bold text-inverse-primary fs-7">Total des Ventes du Mois</div>
                                         </div>
                                         </a>
                                     </div>

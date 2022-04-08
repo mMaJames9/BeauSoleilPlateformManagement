@@ -40,7 +40,7 @@
 
     <div style="margin-bottom: 2rem;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("factures.create") }}">
+            <a class="btn btn-secondary" href="{{ route("factures.create") }}">
                 Ajouter une nouvelle facture
             </a>
         </div>
@@ -94,8 +94,8 @@
                             </span>
                         </td>
                         <td class="">
-                            <a class="badge bg-light-secondary" href="{{ route('factures.edit', $facture->id) }}">
-                                Edit
+                            <a class="badge bg-light-secondary" href="{{ route('factures.show', $facture->id) }}">
+                                Show
                             </a>
 
                             <a role="button" class="badge bg-light-danger" data-bs-toggle="modal"

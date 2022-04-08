@@ -39,7 +39,7 @@
         <div class="col-2">
             <div class="form-group">
                 <label class="required" for="price_service">Prix Unitaire (en CFA)</label>
-                <input class="form-control-plaintext h5 {{ $errors->has('service_id') ? 'is-invalid' : '' }}" style="padding-top: .70rem!important; padding-bottom: .70rem!important;" type="number" id="price_service" name="factureDetails[{{$index}}][price_service]" autocomplete="off" placeholder="0" readonly>
+                <input class="form-control-plaintext h5 {{ $errors->has('price_service') ? 'is-invalid' : '' }}" style="padding-top: .70rem!important; padding-bottom: .70rem!important;" type="number" id="price_service" name="factureDetails[{{$index}}][price_service]" autocomplete="off" placeholder="0" readonly>
 
                 @if($errors->has('price_service'))
                 <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('price_service') }}</div>

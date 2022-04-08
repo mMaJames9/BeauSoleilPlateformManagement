@@ -5,7 +5,8 @@
             <div class="logo">
                 <a href="#">
                     <h3 class="mt-3 page-heading">
-                        <a href=""><img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo"></a>
+                        <img class="pb-2" src="{{ asset('assets/images/logo/logo.jpeg') }}" alt="Logo">
+                        <span class="text-success">Beau </span><span class="text-warning">Soleil</span>
                     </h3>
                 </a>
             </div>
@@ -26,33 +27,33 @@
                 </a>
             </li>
 
-            {{-- @can('user_management_access') --}}
+            @can('user_management_access')
             <li class="sidebar-item has-sub {{ (request()->is('admin/usermanagement*')) ? 'active' : '' }}">
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-people-fill"></i>
-                    <span class="fw-bold">User Management</span>
+                    <span class="fw-bold">User Management  </span>
                 </a>
                 <ul class="submenu ">
 
-                    {{-- @can('permission_access') --}}
+                    @can('permission_access')
                     <li class="submenu-item {{ (request()->is('admin/usermanagement/permissions*')) ? 'active' : '' }}">
                         <a href="{{ route("permissions.index") }}" class="{{ request()->is('admin/usermanagement/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">Permissions</a>
                     </li>
-                    {{-- @endcan --}}
-                    {{-- @can('role_access') --}}
+                    @endcan
+                    @can('role_access')
                     <li class="submenu-item {{ (request()->is('admin/usermanagement/roles*')) ? 'active' : '' }}">
                         <a href="{{ route("roles.index") }}" class="{{ request()->is('admin/usermanagement/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">Rôles</a>
                     </li>
-                    {{-- @endcan --}}
+                    @endcan
 
-                    {{-- @can('user_access') --}}
+                    @can('user_access')
                     <li class="submenu-item {{ (request()->is('admin/usermanagement/users*')) ? 'active' : '' }}">
                         <a href="{{ route("users.index") }}" class="{{ request()->is('admin/usermanagement/users') || request()->is('admin/users/*') ? 'active' : '' }}">Users</a>
                     </li>
-                    {{-- @endcan --}}
+                    @endcan
                 </ul>
             </li>
-            {{-- @endcan --}}
+            @endcan
 
             {{-- @can('category_access') --}}
             <li class="sidebar-item {{ (request()->is('admin/management/categories')) || request()->is('admin/management/categories/*') ? 'active' : '' }} ">

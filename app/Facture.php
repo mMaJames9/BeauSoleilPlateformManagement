@@ -33,7 +33,7 @@ class Facture extends Model
 
     public function services()
     {
-        return $this->belongsToMany(Service::class, FactureService::class)
+        return $this->belongsToMany(Service::class, FactureService::class) 
             ->withTimestamps();
     }
 
