@@ -71,7 +71,11 @@
                                     {{ $category->label_category ?? '' }}
                                 </span>
                             </td>
-                            <td class="">{{ $category->created_at ?? '' }}</td>
+                            <td>
+                                <span class="badge bg-light-primary my-1">
+                                    {{ $category->created_at }}
+                                </span>
+                                </td>
                             <td class="text-center">
                                 <a class="badge bg-light-secondary" href="{{ route('categories.edit', $category->id)
                                 }}">

@@ -20,7 +20,7 @@ class RoleController extends Controller
     {
         // abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $roles = Role::all();
+        $roles = Role::all()->sortByDesc("created_at");
 
         return view('roles.index', compact('roles'));
     }

@@ -18,7 +18,7 @@ class ClientController extends Controller
     {
         // abort_if(Gate::denies('client_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::all();
+        $clients = Client::all()->sortByDesc("created_at");
 
         return view('clients.index', compact('clients'));
     }

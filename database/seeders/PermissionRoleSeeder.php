@@ -15,7 +15,7 @@ class PermissionRoleSeeder extends Seeder
      */
     public function run()
     {
-        $super_permissions = Permission::all();
+        $super_permissions = Permission::all()->sortByDesc("created_at");
         Role::findOrFail(1)->permissions()->sync($super_permissions->pluck('id'));
 
         $admin_permissions = $super_permissions->filter(function ($permission) {

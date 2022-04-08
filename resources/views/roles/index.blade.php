@@ -76,7 +76,11 @@
                                     <span class="badge bg-light-warning my-1">{{ $item->label_permission }}</span>
                                 @endforeach
                             </td>
-                            <td class="">{{ $role->created_at ?? '' }}</td>
+                            <td>
+                                <span class="badge bg-light-primary my-1">
+                                    {{ $role->created_at }}
+                                </span>
+                                </td>
                             <td class="text-center">
                                 <a class="badge bg-light-secondary" href="{{ route('roles.edit', $role->id) }}">
                                     Edit

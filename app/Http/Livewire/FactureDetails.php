@@ -10,34 +10,28 @@ class FactureDetails extends Component
 {
     public $services;
     public $categories = [];
-    public $factureDetails = [];
-    public $servicePrice = [];
+    public $serviceNames = [];
+    public $servicePrices = [''];
+    public $totalPrice = [''];
 
-    // public Facture $factureDetails;
+    // public Facture $serviceNames;
 
     public function mount()
     {
-        $this->servicePrice = [];
 
         $this->services = Service::all();
         $this->categories = Category::all();
-
-        $this->factureDetails = [
-            ['service_id' => '', 'price_service' => 0, 'quantity' => 1, 'amountEachService' => 0]
-        ];
-
-        // $this->factureDetails = $factureDetails;
     }
 
     public function addService()
     {
-        $this->factureDetails[] = ['service_id' => '', 'price_service' => 0, 'quantity' => 1, 'amountEachService' => 0];
+        $this->servicePrices[] = 0;
     }
 
     public function removeService($index)
     {
-        unset($this->factureDetails[$index]);
-        $this->factureDetails = array_values($this->factureDetails);
+        unset($this->servicePrices[$index]);
+        $this->servicePrices = array_values($this->servicePrices);
     }
 
     public function updated($key, $value)
@@ -46,16 +40,21 @@ class FactureDetails extends Component
 
         $parts = explode(".", $key);
 
-        if(count($parts) == 3 && $parts[0] = "service_id") {
+        if(count($parts) == 2 && $parts[0] = "serviceNames") {
             $servicePrice = $this->services->where('id', $value)->first()->price_service;
 
             if($servicePrice) {
-                // $this->factureDetails.{{$index}}.price_service = $servicePrice;
-                // $this->factureDetails.{{$index}}.amountEachService = $amountEachService;
-                // $amountEachService = $servicePrice * $this->factureDetails[$parts[2]];
-                // $this->servicePrice[$parts[1]] = $servicePrice;
+                $this->servicePrices[$parts[1]] = $servicePrice;
             }
         }
+
+        $this->totalPrice = 0;
+
+        foreach($this->servicePrices as $servicePrice) {
+
+            $this->totalPrice += $servicePrice;
+        }
+
     }
 
     public function render()

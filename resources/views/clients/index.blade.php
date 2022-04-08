@@ -74,7 +74,11 @@
                                 {{ $client->phone_number ?? '' }}
                                 </span>
                             </td>
-                            <td class="">{{ $client->created_at ?? '' }}</td>
+                            <td>
+                            <span class="badge bg-light-primary my-1">
+                                {{ $client->created_at }}
+                            </span>
+                            </td>
                             <td class="text-center">
                                 <a role="button" class="badge bg-light-danger" data-bs-toggle="modal"
                                    data-bs-target="#modal{{ $client->id }}">

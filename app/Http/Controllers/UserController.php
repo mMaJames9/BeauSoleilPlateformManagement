@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         // abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::all();
+        $users = User::all()->sortByDesc("created_at");
 
         return view('users.index', compact('users'));
     }

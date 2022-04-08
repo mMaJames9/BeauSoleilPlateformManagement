@@ -23,7 +23,7 @@ class CategoryController extends Controller
     {
         // abort_if(Gate::denies('category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = Category::all();
+        $categories = Category::all()->sortByDesc("created_at");
 
         return view('categories.index', compact('categories'));
     }

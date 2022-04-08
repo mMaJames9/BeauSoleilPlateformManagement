@@ -79,32 +79,38 @@
                                             </div>
                                         </div>
 
-                                        <div class=" mb-4">
-                                            <div id="myDiv" class="form-group">
-                                                <label class="required" for="service_id">Selectionner les
-                                                    services</label>
+                                        {{-- <div class=" mb-4">
+                                            <div class="form-group">
+                                                <label class="required" for="services">Selectionner les services</label>
 
-                                                    <select class="choices form-select-lg multiple-remove " class="price" multiple="multiple {{ $errors->has('service_id') ? 'is-invalid' : '' }}"
+                                                <select class="choices form-select-lg multiple-remove " multiple="multiple {{ $errors->has('services') ? 'is-invalid' : '' }}"
                                                     style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
-                                                    name="service_id[]" id="service_id">
+                                                    name="services[]" id="services">
 
-                                                    <option class="servicePrice" value="0" selected>-- Choisir un service --</option>
-                                                    @php
-                                                        $total_price = 0;
-                                                    @endphp
+                                                    <option value="0">-- Choisir un service --</option>
+
                                                     @foreach($categories as $category)
-                                                    <optgroup  class="servicePrice" label="{{ $category->label_category }}">
-                                                        @foreach($services as $service)
+
+                                                    <optgroup label="{{ $category->label_category }}">
+
+                                                        @php $total = 0; @endphp
+                                                        @foreach($services as $id => $service)
+
                                                         @if($service->category_id == $category->id)
-                                                        <option value="{{$service->id}}">{{ $service->label_service }} : {{ $service->price_service }} FCFA </option>
+
+                                                        <option value="{{ $service->id }}" {{ in_array($service->id, old('services', [])) ? 'selected' : '' }}>{{ $service->label_service }} : {{ $service->price_service}} FCFA</option>
+
                                                         @endif
+
                                                         @endforeach
+
                                                     </optgroup>
                                                     @endforeach
 
                                                 </select>
-                                                @if($errors->has('service_id'))
-                                                <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('service_id') }}</div>
+
+                                                @if($errors->has('services'))
+                                                <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('services') }}</div>
                                                 @endif
                                             </div>
                                         </div>
@@ -115,10 +121,19 @@
                                             </div>
                                             <div class="col d-flex justify-content-end">
 
+                                                <div class="form-group text-right">
+                                                    <label class="mb-0 equired h5" for="total_price">Montal Total (en CFA)</label>
+                                                    <input class="form-control-plaintext h1 {{ $errors->has('total_price') ? 'is-invalid' : '' }}" type="text" name="total_price" autocomplete="off" readonly id="total_price" value="{{ $total }}">
 
+                                                    @if($errors->has('total_price'))
+                                                        <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('total_price') }}</div>
+                                                        @endif
+                                                </div>
 
                                             </div>
-                                        </div>
+                                        </div> --}}
+
+                                        @livewire('facture-details')
 
                                         <div class="form-group mt-4">
                                             <button class="btn btn-success" type="submit" href="{{ route('PrintData') }}">
@@ -126,10 +141,6 @@
                                             </button>
                                             <a class="btn btn-warning" href="{{ route('factures.index') }}">Retour à la liste</a>
                                         </div>
-
-                                        <div class="cart-footer">
-                                            <h6> Total price:{{$total_price}}
-                                            </div>
 
 
                                 </div>

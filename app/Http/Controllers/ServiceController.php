@@ -25,7 +25,7 @@ class ServiceController extends Controller
     {
         // abort_if(Gate::denies('service_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $services = Service::all();
+        $services = Service::all()->sortByDesc("created_at");
 
         return view('services.index', compact('services'));
     }

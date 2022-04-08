@@ -18,8 +18,8 @@ class Services extends Component
     public function mount()
     {
 
-        $this->services = Service::all();
-        $this-> categories = Category::all();
+        $this->services = Service::all()->sortByDesc("created_at");
+        $this-> categories = Category::all()->sortByDesc("created_at");
 
         $this->totalPrices [] = '';
         $this->servicesName [] = '';

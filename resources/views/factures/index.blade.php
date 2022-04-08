@@ -55,6 +55,7 @@
                 <table class="table table-responsive table-lg display" id="tdfactures">
                     <thead>
                     <tr>
+                        <th class="text-center">#</th>
                         <th class="text-center">Numéro</th>
                         <th class="text-center">Nom Client</th>
                         <th class="text-center" width="40%">Services</th>
@@ -66,13 +67,14 @@
                     <tbody class="text-center">
                     @foreach ($factures as $facture)
                     <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td class="">
                             <span class="badge bg-light-primary my-1">
                                 {{ $facture->num_ticket }}
                             </span>
                         </td>
                         <td class="">
-                            <span class="badge bg-light-primary my-1">
+                            <span class="badge bg-light-secondary my-1">
                                 {{ $facture->client->name_client ?? '' }}
                             </span>
                         </td>
@@ -84,7 +86,7 @@
                             @endforeach
                         </td>
                         <td class="">
-                            <span class="badge bg-light-primary my-1">
+                            <span class="badge bg-light-warning my-1">
                                 {{ $facture->total_price }} FCFA
                             </span>
                         </td>
@@ -94,9 +96,9 @@
                             </span>
                         </td>
                         <td class="">
-                            <a class="badge bg-light-secondary" href="{{ route('factures.show', $facture->id) }}">
+                            {{-- <a class="badge bg-light-secondary" href="{{ route('factures.show', $facture->id) }}">
                                 Show
-                            </a>
+                            </a> --}}
 
                             <a role="button" class="badge bg-light-danger" data-bs-toggle="modal"
                             data-bs-target="#modal{{ $facture->id }}">

@@ -82,7 +82,11 @@
                                     <span class="badge bg-light-info">{{ $item->label_role }}</span>
                                 @endforeach
                             </td>
-                            <td class="">{{ $user->created_at ?? '' }}</td>
+                            <td>
+                                <span class="badge bg-light-primary my-1">
+                                    {{ $user->created_at }}
+                                </span>
+                                </td>
                             <td class="text-center">
                                 <a class="badge bg-light-secondary" href="{{ route('users.edit', $user->id) }}">
                                     Edit
