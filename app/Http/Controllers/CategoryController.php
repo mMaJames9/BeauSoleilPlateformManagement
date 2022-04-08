@@ -56,9 +56,9 @@ class CategoryController extends Controller
 
         $category = Category::create($request->all());
 
-        $status = 'A new category was created successfully.';
+        $status = 'La nouvelle catégorie a été ajouté avec succès';
 
-        return redirect()->route('categories.index')->with([
+        return redirect()->route('categories.create')->with([
             'status' => $status,
         ]);
     }
@@ -103,7 +103,7 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
-        $status = 'A new category was created successfully.';
+        $status = 'Cette catégorie a été mis à jour avec succès';
 
         return redirect()->route('categories.index')->with([
             'status' => $status,
@@ -123,7 +123,7 @@ class CategoryController extends Controller
         //delete the categories
         DB::table('categories')->where('id', $id)->delete();
 
-        $status = 'The category was deleted successfully.';
+        $status = 'Cette catégorie a été supprimé avec succès';
 
         return redirect()->route('categories.index')->with([
             'status' => $status,

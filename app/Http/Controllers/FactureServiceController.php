@@ -116,9 +116,7 @@ class FactureServiceController extends Controller
 
         // dd($facture);
 
-
-
-        $status = 'A new facture was created successfully.';
+        $status = 'La nouvelle facture a été ajouté avec succès';
 
 
         return redirect()->route('factures.index')->with([
@@ -181,7 +179,7 @@ class FactureServiceController extends Controller
         // get list of all transactions of factures
         // DB::table('hold')->where('id', $id)->delete();
 
-        $status = 'The facture was deleted successfully.';
+        $status = 'Cette facture a été supprimé avec succès';
 
         return redirect()->route('factures.index')->with([
             'status' => $status,

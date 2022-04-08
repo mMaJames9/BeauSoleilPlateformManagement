@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/choices.js/choices.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/toastify/toastify.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/toastify/toastify.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/iconly/bold.css') }}">
 
     @yield('styles')
@@ -66,7 +67,7 @@
                                         duration: 5000,
                                         close:true,
                                         gravity:"top",
-                                        position: "center",
+                                        position: "right",
                                         backgroundColor: "#198754",
                                     }).showToast();
                                 });
@@ -81,7 +82,7 @@
                                             duration: 5000,
                                             close:true,
                                             gravity:"top",
-                                            position: "center",
+                                            position: "right",
                                             backgroundColor: "#dc3545",
                                         }).showToast();
                                     });
@@ -143,6 +144,8 @@
 <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
 <script src="{{ asset('assets/vendors/choices.js/choices.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
+<script src="{{ asset('assets/vendors/toastify/toastify.js') }}"></script>
+<script src="{{ asset('assets/js/extensions/toastify.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 
 @livewireScripts

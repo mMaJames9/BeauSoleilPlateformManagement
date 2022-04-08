@@ -5,6 +5,37 @@
 @endsection
 
 @section('content')
+
+@if(session('status'))
+            <script>
+                window.addEventListener("load", function () {
+                    Toastify({
+                        text: "{{ session('status') }}",
+                        duration: 5000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "#198754",
+                    }).showToast();
+                });
+            </script>
+        @endif
+
+        @if(session('error'))
+            <script>
+                window.addEventListener("load", function () {
+                    Toastify({
+                        text: "{{ session('error') }}",
+                        duration: 5000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "#dc3545",
+                    }).showToast();
+                });
+            </script>
+        @endif
+
     <section id="create-service">
         <div class="row">
             <div class="col-md-12">

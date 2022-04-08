@@ -60,9 +60,9 @@ class ServiceController extends Controller
 
         $service = Service::create($request->all());
 
-        $status = 'A new service was created successfully.';
+        $status = 'Le nouveau service a été ajouté avec succès';
 
-        return redirect()->route('services.index')->with([
+        return redirect()->route('services.create')->with([
             'status' => $status,
         ]);
     }
@@ -111,7 +111,7 @@ class ServiceController extends Controller
 
         $service->update($request->all());
 
-        $status = 'The service was updated successfully.';
+        $status = 'Ce service a été mis à jour avec succès';
 
         return redirect()->route('services.index')->with([
             'status' => $status,
@@ -134,7 +134,7 @@ class ServiceController extends Controller
         // get list of all transactions of services
         // DB::table('hold')->where('id', $id)->delete();
 
-        $status = 'The service was deleted successfully.';
+        $status = 'Ce service a été supprimé avec succès';
 
         return redirect()->route('services.index')->with([
             'status' => $status,

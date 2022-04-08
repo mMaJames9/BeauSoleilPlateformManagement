@@ -15,7 +15,7 @@
                         duration: 5000,
                         close: true,
                         gravity: "top",
-                        position: "center",
+                        position: "right",
                         backgroundColor: "#198754",
                     }).showToast();
                 });
@@ -30,7 +30,7 @@
                         duration: 5000,
                         close: true,
                         gravity: "top",
-                        position: "center",
+                        position: "right",
                         backgroundColor: "#dc3545",
                     }).showToast();
                 });
