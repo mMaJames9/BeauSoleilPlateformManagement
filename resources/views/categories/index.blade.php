@@ -40,7 +40,7 @@
 
     <div style="margin-bottom: 2rem;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("categories.create") }}">
+            <a class="btn btn-secondary" href="{{ route("categories.create") }}">
                 Ajouter une nouvelle catégorie
             </a>
         </div>

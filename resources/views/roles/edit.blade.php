@@ -50,7 +50,7 @@
                                         <button class="btn btn-success" type="submit">
                                             Enregistrer
                                         </button>
-                                        <a class="btn btn-primary" href="{{ route('roles.index') }}">Retour à la liste</a>
+                                        <a class="btn btn-warning" href="{{ route('roles.index') }}">Retour à la liste</a>
                                     </div>
                                 </form>
                             </div>

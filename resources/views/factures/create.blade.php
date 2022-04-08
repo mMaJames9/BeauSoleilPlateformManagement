@@ -130,7 +130,7 @@
                                             <button class="btn btn-success" type="submit" href="{{ route('PrintData') }}">
                                                 Enregistrer
                                             </button>
-                                            <a class="btn btn-primary" href="{{ route('factures.index') }}">Retour à la liste</a>
+                                            <a class="btn btn-warning" href="{{ route('factures.index') }}">Retour à la liste</a>
                                         </div>
 
                                 </div>
