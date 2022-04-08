@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Client;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class ClientController extends Controller
 {
@@ -30,8 +31,12 @@ class ClientController extends Controller
     public function create()
     {
         // abort_if(Gate::denies('client_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $clients = Client::all();
+        $date = Carbon::now()->format('d-m-Y');
 
-        return view('clients.create');
+        $datac = array('date', 'clients');
+
+        return view('clients.create', compact($datac) );
     }
 
     /**

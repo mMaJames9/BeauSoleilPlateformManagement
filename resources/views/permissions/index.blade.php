@@ -69,7 +69,11 @@
                                 {{ $permission->label_permission ?? '' }}
                                 </span>
                             </td>
-                            <td class="">{{ $permission->created_at ?? '' }}</td>
+                            <td>
+                                <span class="badge bg-light-primary my-1">
+                                    {{ $permission->created_at }}
+                                </span>
+                                </td>
                             <td class="text-center">
 
                                 <a role="button" class="badge bg-light-danger" data-bs-toggle="modal"

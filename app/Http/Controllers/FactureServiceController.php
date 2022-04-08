@@ -5,6 +5,7 @@ require '../vendor/autoload.php';
 
 use App\Category;
 use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use App\Client;
 use App\FactureService;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+
 
 class FactureServiceController extends Controller
 {
@@ -65,23 +67,24 @@ class FactureServiceController extends Controller
 
         $random = strtoupper(Str::random(6));
         $date = Carbon::now()->format('d-m-Y');
+        // $datac = DB::table("services")
+	    // ->select(DB::raw("SUM(price_service) as count"))
+	    // ->orderBy("created_at")
+	    // ->groupBy(DB::raw("created_at"))
+	    // ->get();
+        $balance = DB::table('services')->where('id')->sum('Price_service');
 
         $datas = array('random', 'date', 'services', 'categories');
 
         return view('factures.create', compact($datas, 'clients'));
     }
 
-    // public function PrintData()
-    // {
-    //     $printd =Facture::all()->pluck( 'client_id', 'service_id','total_price', 'created_at');
-    //     // $connector = new FilePrintConnector('/dev/usb/lp0', 'w');
-    //     // $printer = new Printer($connector);
-    //     $printer -> text($printd);
-    //     $printer -> cut();
-    //     $printer -> close();
+    public function PrintData()
+    {
+        $printd =Facture::all()->pluck( 'client_id', 'service_id','total_price', 'created_at');
 
     //     return view('factures.PrintData', compact('printer'));
-    // }
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -95,7 +98,7 @@ class FactureServiceController extends Controller
             'name_client' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'numeric', 'min:620000000', 'max:699999999'],
             'num_ticket' => ['required', 'string', 'min:6', 'max:6', Rule::unique('factures')],
-            // 'total_price' => ['required', 'numeric'],
+            'total_price' => ['required', 'numeric'],
         ]);
 
         $client = Client::create([
@@ -112,6 +115,8 @@ class FactureServiceController extends Controller
         $facture->services()->sync($request->input('services', []));
 
         // dd($facture);
+
+
 
         $status = 'A new facture was created successfully.';
 

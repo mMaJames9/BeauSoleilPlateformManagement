@@ -76,7 +76,11 @@
                                         {{ $service->price_service ?? '' }} FCFA
                                 </span>
                             </td>
-                            <td class="">{{ $service->created_at ?? '' }}</td>
+                            <td>
+                                <span class="badge bg-light-primary my-1">
+                                    {{ $service->created_at }}
+                                </span>
+                                </td>
                             <td class="text-center">
                                 <a class="badge bg-light-secondary" href="{{ route('services.edit', $service->id) }}">
                                     Edit

@@ -80,7 +80,7 @@
                                             </div>
                                         </div>
 
-                                        <div class=" mb-4">
+                                        {{-- <div class=" mb-4">
                                             <div class="form-group">
                                                 <label class="required" for="services">Selectionner les services</label>
 
@@ -94,6 +94,7 @@
 
                                                     <optgroup label="{{ $category->label_category }}">
 
+                                                        @php $total = 0; @endphp
                                                         @foreach($services as $id => $service)
 
                                                         @if($service->category_id == $category->id)
@@ -105,7 +106,6 @@
                                                         @endforeach
 
                                                     </optgroup>
-
                                                     @endforeach
 
                                                 </select>
@@ -123,9 +123,8 @@
                                             <div class="col d-flex justify-content-end">
 
                                                 <div class="form-group text-right">
-                                                    <label class="mb-0 equired h6" for="total_price">Montal Total (en CFA)</label>
-                                                    <input class="totalPrice form-control-plaintext h1 {{ $errors->has('total_price') ? 'is-invalid' : '' }}"
-                                                    type="text" name="total_price" autocomplete="off" readonly id="total_price">
+                                                    <label class="mb-0 equired h5" for="total_price">Montal Total (en CFA)</label>
+                                                    <input class="form-control-plaintext h1 {{ $errors->has('total_price') ? 'is-invalid' : '' }}" type="text" name="total_price" autocomplete="off" readonly id="total_price" value="{{ $total }}">
 
                                                     @if($errors->has('total_price'))
                                                         <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('total_price') }}</div>
@@ -133,7 +132,9 @@
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> --}}
+
+                                        @livewire('facture-details')
 
                                         <div class="form-group mt-4">
                                             <button class="btn btn-success" type="submit" href="{{ route('PrintData') }}">
@@ -142,6 +143,7 @@
                                             <a class="btn btn-warning" href="{{ route('factures.index') }}">Retour à la liste</a>
                                         </div>
 
+
                                 </div>
                             </div>
                         </div>
@@ -149,7 +151,6 @@
                 </div>
             </div>
         </div>
-
     </section>
 
 @endsection
