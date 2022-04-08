@@ -65,6 +65,12 @@ class FactureServiceController extends Controller
 
         $random = strtoupper(Str::random(6));
         $date = Carbon::now()->format('d-m-Y');
+        // $datac = DB::table("services")
+	    // ->select(DB::raw("SUM(price_service) as count"))
+	    // ->orderBy("created_at")
+	    // ->groupBy(DB::raw("created_at"))
+	    // ->get();
+        $balance = DB::table('services')->where('id')->sum('Price_service');
 
         $datas = array('random', 'date', 'services', 'categories');
 
@@ -78,7 +84,7 @@ class FactureServiceController extends Controller
 
         // }
 
-        return view('factures.create', compact($datas, 'clients'));
+        return view('factures.create', compact($datas, 'clients', 'balance'));
     }
 
     // public function PrintData()
@@ -104,18 +110,20 @@ class FactureServiceController extends Controller
             'name_client' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'numeric', 'min:620000000', 'max:699999999'],
             'num_ticket' => ['required', 'string', 'min:6', 'max:6', Rule::unique('factures')],
-            // 'total_price' => ['required', 'numeric'],
+            'total_price' => ['required', 'numeric'],
         ]);
 
 
         $facture = Facture::create($request->all());
 
-        dd($facture);
+
 
         foreach ($request->factureDetails as $factureDetail) {
             $factureDetail->services()->attach($factureDetail['service_id'],
             ['quantity' => $factureDetail['quantity']]);
         }
+
+
 
         $status = 'A new facture was created successfully.';
 

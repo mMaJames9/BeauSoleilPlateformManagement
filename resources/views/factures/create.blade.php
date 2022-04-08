@@ -3,7 +3,20 @@
 @section('page_title_header')
     <h3>Factures</h3>
 @endsection
-
+<script>
+    $(document).ready(function()
+    {
+    $('.qty').on('keyup',function() {
+    var quantities = $('.qty');
+    var prices = $('.price');
+    var total = 0;
+   $.each(quantities, (index, qty) => {
+        total += parseInt($(qty).val() || 0) + parseFloat($(prices[index]).val() || 0)
+    });
+    $("#total_price").html(total_price);
+});
+    });
+</script>
 @section('content')
     <section id="create-facture">
         <div class="row">
@@ -85,13 +98,13 @@
                                                 <label class="required" for="service_id">Selectionner les
                                                     services</label>
 
-                                                    <select class="choices form-select-lg multiple-remove " multiple="multiple {{ $errors->has('service_id') ? 'is-invalid' : '' }}"
+                                                    <select class="choices form-select-lg multiple-remove " class="price" multiple="multiple {{ $errors->has('service_id') ? 'is-invalid' : '' }}"
                                                     style="padding-top: .70rem!important; padding-bottom: .70rem!important;"
                                                     name="service_id[]" id="service_id">
 
-                                                    <option value="0" selected>-- Choisir un service --</option>
+                                                    <option class="servicePrice" value="0" selected>-- Choisir un service --</option>
                                                     @foreach($categories as $category)
-                                                    <optgroup label="{{ $category->label_category }}">
+                                                    <optgroup class="servicePrice" label="{{ $category->label_category }}">
                                                         @foreach($services as $service)
                                                         @if($service->category_id == $category->id)
                                                         <option value="{{$service->id}}">{{ $service->label_service }} : {{ $service->price_service }} FCFA</option>
@@ -99,7 +112,9 @@
                                                         @endforeach
                                                     </optgroup>
                                                     @endforeach
+
                                                 </select>
+
 
                                                 @if($errors->has('service_id'))
                                                 <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('service_id') }}</div>
@@ -113,15 +128,7 @@
                                             </div>
                                             <div class="col d-flex justify-content-end">
 
-                                                <div class="form-group text-right">
-                                                    <label class="mb-0 equired h6" for="total_price">Montal Total (en CFA)</label>
-                                                    <input class="totalPrice form-control-plaintext h1 {{ $errors->has('total_price') ? 'is-invalid' : '' }}"
-                                                    type="text" name="total_price" autocomplete="off" readonly id="total_price">
 
-                                                    @if($errors->has('total_price'))
-                                                        <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('total_price') }}</div>
-                                                        @endif
-                                                </div>
 
                                             </div>
                                         </div>
@@ -140,8 +147,33 @@
                 </div>
             </div>
         </div>
-
     </section>
+< <script>
+    $(document).ready(function () {
+        $(document).on('change', '.serviceName', function () {
+            var service_id = $(this).val();
+
+            var a = $(this).parent().parent().parent();
+            console.log(service_id);
+            var op = "";
+
+            $.ajax({
+                type: 'get',
+                url: '{!!URL::to('findPriceService')!!}',
+                data: {'id': service_id},
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data.price_service);
+
+                    a.find('.servicePrice').val(data.price_service);
+                },
+                error: function () {
+
+                }
+            });
+        })
+    })
+</script>
 
 @endsection
 
