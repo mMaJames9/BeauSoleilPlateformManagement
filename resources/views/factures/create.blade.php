@@ -3,7 +3,6 @@
 @section('page_title_header')
     <h3>Liste des Factures</h3>
 @endsection
-
 @section('content')
     <section id="create-facture">
         <div class="row">
