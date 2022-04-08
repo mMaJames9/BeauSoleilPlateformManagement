@@ -67,11 +67,7 @@ class FactureServiceController extends Controller
 
         $random = strtoupper(Str::random(6));
         $date = Carbon::now()->format('d-m-Y');
-        // $datac = DB::table("services")
-	    // ->select(DB::raw("SUM(price_service) as count"))
-	    // ->orderBy("created_at")
-	    // ->groupBy(DB::raw("created_at"))
-	    // ->get();
+
         $balance = DB::table('services')->where('id')->sum('Price_service');
 
         $datas = array('random', 'date', 'services', 'categories');
@@ -82,8 +78,13 @@ class FactureServiceController extends Controller
     public function PrintData()
     {
         $printd =Facture::all()->pluck( 'client_id', 'service_id','total_price', 'created_at');
+        $connector = new WindowsPrintConnector(' ');
+        $printer= new Printer($connector);
+        $printer ->text($printd);
+        $printer ->cut();
+        $printer -> close();
 
-    //     return view('factures.PrintData', compact('printer'));
+     return view('factures.PrintData', compact('printer'));
     }
 
     /**
@@ -140,7 +141,6 @@ class FactureServiceController extends Controller
 
         return view('factures.show', compact('facture'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *

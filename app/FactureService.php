@@ -47,4 +47,5 @@ class FactureService extends Model
         return $this->belongsTo(Facture::class);
         return $this->factureservice()->sum(DB::raw('quantity * services.price_service'));
     }
+    
 }
