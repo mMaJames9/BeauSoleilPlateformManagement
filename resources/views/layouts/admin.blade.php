@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"> --}}
 
 <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('assets/vendors/simple-datatables/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
@@ -26,6 +25,12 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/toastify/toastify.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/toastify/toastify.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/iconly/bold.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/rowGroup.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/buttons.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/buttons.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
 
     @yield('styles')
 
@@ -137,16 +142,27 @@
 <!-- Scripts -->
 
 <script src="{{ asset('assets/js/main.js') }}"></script>
-<script src="{{ asset('assets/js/jquery3.5.1.js') }}"></script>
 <script src="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/apexcharts/apexcharts.js') }}"></script>
 <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
 <script src="{{ asset('assets/vendors/choices.js/choices.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
 <script src="{{ asset('assets/vendors/toastify/toastify.js') }}"></script>
 <script src="{{ asset('assets/js/extensions/toastify.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('js/buttons.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('js/jszip.min.js') }}"></script>
+<script src="{{ asset('js/pdfmake.min.js') }}"></script>
+<script src="{{ asset('js/vfs_fonts.js') }}"></script>
+<script src="{{ asset('js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.select.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.rowGroup.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.buttons.colVis.min.js') }}"></script>
 
 @livewireScripts
 
