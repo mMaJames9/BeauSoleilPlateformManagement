@@ -87,8 +87,6 @@
                                             </button>
                                             <a class="btn btn-warning" href="{{ route('factures.index') }}">Retour à la liste</a>
                                         </div>
-
-
                                 </div>
                             </div>
                         </div>

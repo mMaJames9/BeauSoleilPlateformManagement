@@ -120,7 +120,7 @@ class FactureServiceController extends Controller
      * @param  \App\FactureService  $facture
      * @return \Illuminate\Http\Response
      */
-    public function show(FactureService $facture)
+    public function show(FactureService $facture,Request $r)
     {
         // abort_if(Gate::denies('facture_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -158,6 +158,7 @@ class FactureServiceController extends Controller
      * @param  \App\FactureService  $facture
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         // abort_if(Gate::denies('facture_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
