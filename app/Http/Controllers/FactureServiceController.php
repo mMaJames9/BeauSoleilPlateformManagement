@@ -20,6 +20,8 @@ use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Mike42\Escpos\CapabilityProfile;
+
 
 
 class FactureServiceController extends Controller
@@ -100,9 +102,11 @@ class FactureServiceController extends Controller
         // dd($facture);
         $connector = new WindowsPrintConnector("epson U220");
             $printer = new Printer($connector);
-            $printd =$this->request->getpost('clients');
-            $datservice= $this->db->table('services');
-            $datfacture= $this->db->table('factures');
+            $data = json_encode(array('num_facture', 'name_client', 'phone_number', 'created_at', 'label_service', 'price_service', 'total_price'));
+
+            $printer->initialize();
+            $printer->text($data . "\n");
+            $printer->selectPrintMode(Printer::MODE_UNDERLINE);
 
             $printer -> cut();
 
