@@ -32,8 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/findPriceService', 'App\Http\Controllers\FactureServiceController@findPriceService');
     Route::get('/countservices','App\Http\Controllers\HomeController@countservices');
-    Route::post('/show', 'App\Http\Controllers\FactureService@show')->name('Factures.show');
-    Route::get('/PrintData','App\Http\Controllers\FactureServiceController@PrintData')->name('PrintData');
+
 
     Route::resource('/admin/management/categories', 'App\Http\Controllers\CategoryController');
     Route::resource('/admin/management/clients', 'App\Http\Controllers\ClientController');

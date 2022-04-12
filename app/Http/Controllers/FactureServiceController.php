@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 require '../vendor/autoload.php';
 
 use App\Category;
+use Exception;
 use App\Client;
 use App\FactureService;
 use App\Facture ;
@@ -13,12 +14,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
-use NunoMaduro\Collision\Adapters\Phpunit\Printer;
+use Yajra\DataTables\DataTables;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use LaravelDaily\Invoices\Classes\InvoiceItem;
-use LaravelDaily\Invoices\Classes\Buyer;
-use LaravelDaily\Invoices\Invoice;
 
 
 class FactureServiceController extends Controller
@@ -68,14 +69,6 @@ class FactureServiceController extends Controller
         return view('factures.create', compact($datas, 'clients'));
     }
 
-    public function PrintData()
-    {
-        $printd =Facture::all()->pluck( 'client_id', 'service_id','total_price', 'created_at');
-
-
-     return view('factures.PrintData', compact('printd'));
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -105,6 +98,15 @@ class FactureServiceController extends Controller
         $facture->services()->sync($request->input('services', []));
 
         // dd($facture);
+        $connector = new WindowsPrintConnector("epson U220");
+            $printer = new Printer($connector);
+            $printd =$this->request->getpost('clients');
+            $datservice= $this->db->table('services');
+            $datfacture= $this->db->table('factures');
+
+            $printer -> cut();
+
+            $printer -> close();
 
         $status = 'La nouvelle facture a été ajouté avec succès';
 
