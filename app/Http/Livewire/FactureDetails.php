@@ -51,7 +51,6 @@ class FactureDetails extends Component
         $this->totalPrice = 0;
 
         foreach($this->servicePrices as $servicePrice) {
-
             $this->totalPrice += $servicePrice;
         }
 

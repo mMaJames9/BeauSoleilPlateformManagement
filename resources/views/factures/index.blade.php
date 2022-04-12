@@ -4,6 +4,7 @@
     <h3>Liste des Factures</h3>
 @endsection
 
+
 @section('content')
 
     {{-- @can('facture_create','facture_edit','facture_delete') --}}
@@ -166,9 +167,63 @@
 @section('scripts')
     @parent
 
-    <script>
-        // Simple Datatable
-        let tdfactures = document.querySelector('#tdfactures');
-        let dataTable = new simpleDatatables.DataTable(tdfactures);
+<script>
+
+    $(document).ready(function() {
+
+        var table = $('#tdfactures').DataTable( {
+            dom:'<"row my-4"<"col-4" l><"#buttons"<"col-4 d-inline-block text-center" B>><"col-4" f>> rtip',
+            autoFill: true,
+            lengthChange: true,
+            responsive: true,
+            lengthMenu: [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+            select: true,
+
+            columnDefs: [{
+                orderable: false,
+                // className: 'select-checkbox',
+                targets: 0
+            },
+            {
+                orderable: false,
+                searchable: false,
+                targets: -1
+            }],
+
+            select: {
+                style:    'multi+shift',
+                selector: 'td:first-child'
+            },
+
+            buttons: [
+
+                {
+                    extend: 'pdf',
+                    className: 'my-1 btn-sm btn btn-dark',
+                    exportOptions: {
+                        columns: [ 1,2,3,4,5]
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    className: 'my-1 btn-sm btn btn-info',
+                    exportOptions: {
+                        columns: [ 1,2,3,4,5]
+                    }
+                }
+            ],
+
+            order: [[5, 'desc']],
+            } );
+
+            var cnt = $(".dt-buttons").contents();
+            $(".dt-buttons").replaceWith(cnt);
+            var cnta = $("#buttons").contents();
+            $("#buttons").replaceWith(cnta);
+
+        } );
+
     </script>
+
 @endsection
