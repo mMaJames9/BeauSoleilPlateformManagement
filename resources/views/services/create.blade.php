@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page_title_header')
-    <h3>Création d'un nouveau service</h3>
+    <h3>Création d'un nouveau Service</h3>
 @endsection
 
 @section('content')

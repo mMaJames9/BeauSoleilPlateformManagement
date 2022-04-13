@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page_title_header')
-    <h3>Création d'un nouveau rôle</h3>
+    <h3>Création d'un nouveau Rôle</h3>
 @endsection
 
 @section('content')
@@ -33,8 +33,7 @@
                                     <div class="form-group">
                                         <label class="required" for="permissions">Choisir les permissions</label>
                                         <div class="form-group">
-                                            <select class="choices form-select multiple-remove {{ $errors->has('permissions') ? 'is-invalid' : '' }}"
-                                                    name="permissions[]" id="permissions" multiple>
+                                            <select class="choices form-select multiple-remove {{ $errors->has('permissions') ? 'is-invalid' : '' }}" name="permissions[]" id="permissions" multiple >
                                                 @foreach($permissions as $id => $permissions)
                                                     <option value="{{ $id }}" {{ in_array($id, old('permissions', [])) ? 'selected' : '' }}>{{ $permissions }}</option>
                                                 @endforeach
@@ -42,8 +41,7 @@
                                         </div>
 
                                         @if($errors->has('permissions'))
-                                            <div id="validationServer04Feedback"
-                                                 class="invalid-feedback">{{ $errors->first('permissions') }}</div>
+                                        <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('permissions') }}</div>
                                         @endif
                                     </div>
 

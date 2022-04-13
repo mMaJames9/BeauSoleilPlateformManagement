@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title') Liste des Utilisateurs @endsection
+
 @section('page_title_header')
     <h3>Liste des Utilisateurs</h3>
 @endsection

@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title') Liste des Clients @endsection
+
 @section('page_title_header')
     <h3>Liste des Clients</h3>
 @endsection
@@ -57,7 +59,7 @@
                         <th class="text-center">Nom</th>
                         <th class="text-center">Téléphone</th>
                         <th class="text-center">Créé le</th>
-                        <th class="text-center"></th>
+                        {{-- <th class="text-center"></th> --}}
                     </tr>
                     </thead>
                     <tbody class="text-center">
@@ -79,7 +81,7 @@
                                 {{ $client->created_at }}
                             </span>
                             </td>
-                            <td class="text-center">
+                            {{-- <td class="text-center">
                                 <a role="button" class="badge bg-light-danger" data-bs-toggle="modal"
                                    data-bs-target="#modal{{ $client->id }}">
                                     Delete
@@ -122,7 +124,7 @@
                                     </div>
                                 </div>
 
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
                     </tbody>

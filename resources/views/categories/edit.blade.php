@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <form method="POST" action="{{ route("categories.update", [$categories]) }}"
+                                <form method="POST" action="{{ route("categories.update", [$category->id]) }}"
                                       enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
@@ -27,7 +27,7 @@
                                             <div class="form-group">
                                                 <label class="required" for="label_category">Nom Catégorie</label>
                                                 <input class="form-control {{ $errors->has('label_category') ?
-                                                'is-invalid' : '' }}" type="text" name="label_category" id="label_category" value="{{ old('label_category', $categories) }}">
+                                                'is-invalid' : '' }}" type="text" name="label_category" id="label_category" value="{{ old('label_category', $category->label_category) }}">
                                                 @if($errors->has('label_category'))
                                                     <div id="validationServer04Feedback" class="invalid-feedback">{{ $errors->first('label_category') }}</div>
                                                 @endif

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Beau Soleil</title>
+    <title>@yield('title')</title>
 
     @livewireStyles
 
@@ -31,6 +31,8 @@
     <link rel="stylesheet" href="{{ asset('css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/buttons.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dataTables.dateTime.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/searchPanes.dataTables.min.css') }}">
 
     @yield('styles')
 
@@ -163,6 +165,9 @@
 <script src="{{ asset('js/dataTables.select.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.rowGroup.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.dateTime.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.searchPanes.min.js') }}"></script>
+<script src="{{ asset('js/moment.min.js') }}"></script>
 
 @livewireScripts
 

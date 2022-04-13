@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title') Liste des Rôles @endsection
+
 @section('page_title_header')
     <h3>Liste des rôles</h3>
 @endsection

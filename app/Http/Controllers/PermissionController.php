@@ -91,7 +91,7 @@ class PermissionController extends Controller
     public function update(Request $request, Permission $permission)
     {
         $this->validate($request, [
-            'label_permission' => ['required', 'string', 'max:255', Rule::unique('permissions').$this->category->id_category],
+            'label_permission' => ['required', 'string', 'max:255', Rule::unique('permissions')->ignore($permission)],
         ]);
 
         $permission->update($request->all());

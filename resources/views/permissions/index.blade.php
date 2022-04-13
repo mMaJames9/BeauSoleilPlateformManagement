@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title') Liste des Permissioins @endsection
+
 @section('page_title_header')
     <h3>Liste des Permissions</h3>
 @endsection

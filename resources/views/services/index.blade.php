@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title') Liste des Services @endsection
+
 @section('page_title_header')
     <h3>Liste des Services</h3>
 @endsection
@@ -67,7 +69,7 @@
                         <tr class="">
                             <td>{{ $loop->iteration }}</td>
                             <td class="">
-                                <span class="badge bg-light-primary my-1">{{ $service->pivot}}</span>
+                                <span class="badge bg-light-primary my-1">
                                     {{ $service->label_service ?? '' }}
                                 </span>
                             </td>

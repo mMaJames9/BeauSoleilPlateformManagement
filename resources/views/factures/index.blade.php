@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title') Liste des Factures @endsection
+
 @section('page_title_header')
     <h3>Liste des Factures</h3>
 @endsection
@@ -53,6 +55,23 @@
 
             </div>
             <div class="card-body">
+                <div class="col-5 mb-5">
+                    <table class="table table-borderless w-20">
+                        <tbody>
+                            <tr>
+                                <td>Date Minimale: </td>
+                                <td>
+                                    <input class="form-control" type="text" id="min" name="min">
+                                </td>
+                                <td>Date Maximale: </td>
+                                <td>
+                                    <input class="form-control" type="text" id="max" name="max">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <table class="table table-responsive table-lg display" id="tdfactures">
                     <thead>
                     <tr>
@@ -62,7 +81,7 @@
                         <th class="text-center" width="40%">Services</th>
                         <th class="text-center">Montant Total</th>
                         <th class="text-center">Créée le</th>
-                        <th class="text-center"></th>
+                        {{-- <th class="text-center"></th> --}}
                     </tr>
                     </thead>
                     <tbody class="text-center">
@@ -96,10 +115,10 @@
                                 {{ $facture->created_at }}
                             </span>
                         </td>
-                        <td class="">
-                            {{-- <a class="badge bg-light-secondary" href="{{ route('factures.show', $facture->id) }}">
+                        {{-- <td class="">
+                            <a class="badge bg-light-secondary" href="{{ route('factures.show', $facture->id) }}">
                                 Show
-                            </a> --}}
+                            </a>
 
                             <a role="button" class="badge bg-light-danger" data-bs-toggle="modal"
                             data-bs-target="#modal{{ $facture->id }}">
@@ -149,7 +168,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </td>
+                        </td> --}}
                     </tr>
                     @endforeach
                     </tbody>
@@ -165,54 +184,81 @@
 
 
 @section('scripts')
-    @parent
+@parent
 
 <script>
 
-    $(document).ready(function() {
+    var minDate, maxDate;
 
-        var table = $('#tdfactures').DataTable( {
-            dom:'<"row my-4"<"col-4" l><"#buttons"<"col-4 d-inline-block text-center" B>><"col-4" f>> rtip',
-            autoFill: true,
-            lengthChange: true,
-            responsive: true,
-            lengthMenu: [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
-            select: true,
+        // Custom filtering function which will search data in column four between two values
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var min = minDate.val();
+                var max = maxDate.val();
+                var date = new Date( data[5] );
 
-            columnDefs: [{
-                orderable: false,
-                // className: 'select-checkbox',
-                targets: 0
-            },
-            {
-                orderable: false,
-                searchable: false,
-                targets: -1
-            }],
-
-            select: {
-                style:    'multi+shift',
-                selector: 'td:first-child'
-            },
-
-            buttons: [
-
-                {
-                    extend: 'pdf',
-                    className: 'my-1 btn-sm btn btn-dark',
-                    exportOptions: {
-                        columns: [ 1,2,3,4,5]
-                    }
-                },
-
-                {
-                    extend: 'print',
-                    className: 'my-1 btn-sm btn btn-info',
-                    exportOptions: {
-                        columns: [ 1,2,3,4,5]
-                    }
+                if (
+                    ( min === null && max === null ) ||
+                    ( min === null && date <= max ) ||
+                    ( min <= date   && max === null ) ||
+                    ( min <= date   && date <= max )
+                ) {
+                    return true;
                 }
-            ],
+                return false;
+            }
+            );
+                $(document).ready(function() {
+
+                    minDate = new DateTime($('#min'), {
+                        format: 'Do MMMM YYYY'
+                    });
+                    maxDate = new DateTime($('#max'), {
+                        format: 'Do MMMM YYYY'
+                    });
+
+                    var table = $('#tdfactures').DataTable( {
+                        dom:'<"row my-4"<"col-4" l><"#buttons"<"col-4 d-inline-block text-center" B>><"col-4" f>> rtip',
+                        autoFill: true,
+                        lengthChange: true,
+                        responsive: true,
+                        lengthMenu: [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"]],
+                        select: true,
+
+                        columnDefs: [{
+                            orderable: false,
+                            // className: 'select-checkbox',
+                            targets: 0
+                        },
+                        {
+                            orderable: false,
+                            searchable: false,
+                            targets: -1
+                        }],
+
+                        select: {
+                            style:    'multi+shift',
+                            selector: 'td:first-child'
+                        },
+
+                        buttons: [
+
+                            {
+                                extend: 'pdf',
+                                className: 'my-1 btn-sm btn btn-dark',
+                                exportOptions: {
+                                    columns: [ 1,2,3,4,5]
+                                }
+                            },
+
+                            {
+                                extend: 'print',
+                                className: 'my-1 btn-sm btn btn-info',
+                                exportOptions: {
+                                    columns: [ 1,2,3,4,5]
+                                }
+                            }
+                        ],
 
             order: [[5, 'desc']],
             } );
@@ -222,8 +268,11 @@
             var cnta = $("#buttons").contents();
             $("#buttons").replaceWith(cnta);
 
+            $('#min, #max').on('change', function () {
+                table.draw();
+            });
+
         } );
 
-    </script>
-
+</script>
 @endsection

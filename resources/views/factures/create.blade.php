@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page_title_header')
-    <h3>Liste des Factures</h3>
+    <h3>Enregistrement Facture</h3>
 @endsection
 @section('content')
     <section id="create-facture">

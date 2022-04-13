@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page_title_header')
-    <h3>Création d'une nouvelle catégorie</h3>
+    <h3>Création d'une nouvelle Catégorie</h3>
 @endsection
 
 @section('content')

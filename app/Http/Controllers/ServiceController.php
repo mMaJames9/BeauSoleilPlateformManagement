@@ -90,7 +90,7 @@ class ServiceController extends Controller
 
         $categories = Category::all()->pluck('label_category', 'id');
 
-        $service->load('categories')->get();
+        $service->load('category');
 
         return view('services.edit', compact('categories', 'service'));
     }

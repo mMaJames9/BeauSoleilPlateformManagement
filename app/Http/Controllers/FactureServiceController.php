@@ -21,8 +21,7 @@ use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Mike42\Escpos\CapabilityProfile;
-
-
+use Mike42\Escpos\EscposImage;
 
 class FactureServiceController extends Controller
 {
@@ -64,7 +63,7 @@ class FactureServiceController extends Controller
 
         $random = strtoupper(Str::random(6));
         $date = Carbon::now()->format('d-m-Y');
-        $balance = DB::table('services')->where('id')->sum('Price_service');
+        // $balance = DB::table('services')->where('id')->sum('price_service');
 
         $datas = array('random', 'date', 'services', 'categories');
 
@@ -100,17 +99,17 @@ class FactureServiceController extends Controller
         $facture->services()->sync($request->input('services', []));
 
         // dd($facture);
-        $connector = new WindowsPrintConnector("epson U220");
-            $printer = new Printer($connector);
-            $data = json_encode(array('num_facture', 'name_client', 'phone_number', 'created_at', 'label_service', 'price_service', 'total_price'));
+        $connector = new WindowsPrintConnector("Epson TM-U220B");
+        $printer = new Printer($connector);
+        $data = json_encode(array('num_facture', 'name_client', 'phone_number', 'created_at', 'label_service', 'price_service', 'total_price'));
+        $img = EscposImage::load("../../../public/assets/images/logo/logo.jpeg");
 
-            $printer->initialize();
-            $printer->text($data . "\n");
-            $printer->selectPrintMode(Printer::MODE_UNDERLINE);
-
-            $printer -> cut();
-
-            $printer -> close();
+        $printer->initialize();
+        $printer -> graphics($img);
+        $printer->text($data . "\n");
+        $printer->selectPrintMode(Printer::MODE_UNDERLINE);
+        $printer -> cut();
+        $printer -> close();
 
         $status = 'La nouvelle facture a été ajouté avec succès';
 
@@ -130,9 +129,9 @@ class FactureServiceController extends Controller
     {
         // abort_if(Gate::denies('facture_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $facture->load('clients','services');
+        // $facture->load('clients','services');
 
-        return view('factures.show', compact('facture'));
+        // return view('factures.show', compact('facture'));
     }
     /**
      * Show the form for editing the specified resource.

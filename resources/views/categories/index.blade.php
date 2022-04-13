@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title') Liste des Catégories @endsection
+
 @section('page_title_header')
     <h3>Liste des Catégories</h3>
 @endsection
