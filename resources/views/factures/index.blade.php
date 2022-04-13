@@ -81,7 +81,7 @@
                         <th class="text-center" width="40%">Services</th>
                         <th class="text-center">Montant Total</th>
                         <th class="text-center">Créée le</th>
-                        {{-- <th class="text-center"></th> --}}
+                        <th class="text-center"></th>
                     </tr>
                     </thead>
                     <tbody class="text-center">
@@ -115,7 +115,7 @@
                                 {{ $facture->created_at }}
                             </span>
                         </td>
-                        {{-- <td class="">
+                        <td class="">
                             <a class="badge bg-light-secondary" href="{{ route('factures.show', $facture->id) }}">
                                 Show
                             </a>
@@ -168,7 +168,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </td> --}}
+                        </td>
                     </tr>
                     @endforeach
                     </tbody>

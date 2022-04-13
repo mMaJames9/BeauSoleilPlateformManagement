@@ -102,10 +102,10 @@ class FactureServiceController extends Controller
         $connector = new WindowsPrintConnector("Epson TM-U220B");
         $printer = new Printer($connector);
         $data = json_encode(array('num_facture', 'name_client', 'phone_number', 'created_at', 'label_service', 'price_service', 'total_price'));
-        $img = EscposImage::load("../../../public/assets/images/logo/logo.jpeg");
+        // $img = EscposImage::load("../../../public/assets/images/logo/logo.jpeg");
 
         $printer->initialize();
-        $printer -> graphics($img);
+        // $printer -> graphics($img);
         $printer->text($data . "\n");
         $printer->selectPrintMode(Printer::MODE_UNDERLINE);
         $printer -> cut();
